@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content bg-color="red">
-    <form>
+    <form (ngSubmit)="attemptLogin()">
 
         <!-- Card for text inputs -->
         <ion-card class="input-card">
@@ -17,12 +17,10 @@
                     <ion-row>
                         <ion-col>
                             <ion-item class="home-input">
-                                <!--<ion-label floating>Username</ion-label>-->
-                                <ion-input type="text" placeholder="Username"></ion-input>
+                                <ion-input type="text" placeholder="Username" [(ngModel)]="usrnm" name="usrnm"></ion-input>
                             </ion-item>
                             <ion-item class="home-input">
-                                <!--<ion-label floating>Password</ion-label>-->
-                                <ion-input type="password" placeholder="Password"></ion-input>
+                                <ion-input type="password" placeholder="Password" [(ngModel)]="psswd" name="psswd"></ion-input>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -36,10 +34,10 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col>
-                            <button ion-button round item-start id="login_btn">Login</button>
-                     </ion-col>
+                            <button type="submit" ion-button round item-start id="login_btn">Login</button>
+                        </ion-col>
                         <ion-col>
-                            <button ion-button round item-end id="register_btn">Register</button>
+                            <button type="button" ion-button round item-end id="register_btn" (click)="loadRegisterPage()">Register</button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
