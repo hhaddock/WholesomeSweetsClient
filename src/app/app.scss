@@ -17,13 +17,32 @@
 [ bg-color="lred" ] {
 	background-color: #76272D;
 }
-[ bg-color="red" ] {
+
+.menu-item {
 	background-color: #5E2A2E;
 	color: #F3D9D9;
+	font-family: map-get( $fonts, helv );
 }
+
+.toolbar-background {
+	background-color: color( $colors, nav-bar, base );
+}
+
+.toolbar-title {
+	color: color( $colors, nav-bar, contrast );
+	font-family: map-get( $fonts, helv );
+}
+
+.bar-button-default {
+	color: color( $colors, register-btn, base );
+}
+
 .list-ios .item-block .item-inner {
-	border-color: #F3D9D9;
+	border-width: 1px;
+	border-color: color( $colors, nav-bar, base );
 }
-.item, .item-divider {
-	border-color: #F3D9D9;
+
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+	border-width: 1px;
+	border-color: color( $colors, nav-bar, base );
 }
