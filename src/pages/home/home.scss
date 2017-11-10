@@ -1,0 +1,42 @@
+page-home {
+	[ bg-color="red" ] {
+		background-color: #5E2A2E;
+		//f9ecec
+	}
+	[ bg-color="dpink" ] {
+		background-color: #F3D9D9;
+		margin: 5px 0px;
+		border-radius: 2px;
+		padding: 5px;
+		font-size: 1.5em;
+	}
+	[ img-size="logo" ] {
+		width: 80%;
+		margin-top: 30vh;
+	}
+	[ h-align="center" ] {
+		text-align: center;
+	}
+	.card-content {
+		padding: 0;
+	}
+	.card {
+		background-color: #76272D;
+		text-align: center;
+		padding: 2px 5px;
+		border-radius: 4px;
+		margin-top: 20px;
+	}
+	#login_btn {
+		background-color: #85cc33;
+		color: #507a1f;
+		border-radius: 4px;
+		width: 100%;
+	}
+	#register_btn {
+		background-color: #89abc2;
+		color: #3d5e76;
+		border-radius: 4px;
+		width: 100%;
+	}
+}

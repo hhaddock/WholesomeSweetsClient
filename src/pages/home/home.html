@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<!-- F3D9D9 -->
+<ion-content bg-color="red">
+    <form>
+        <ion-card>
+            <ion-card-content>
+                <ion-item bg-color="dpink">
+                    <!--<ion-label floating>Username</ion-label>-->
+                    <ion-input type="text" placeholder="Username"></ion-input>
+                </ion-item>
+                <ion-item bg-color="dpink">
+                    <!--<ion-label floating>Password</ion-label>-->
+                    <ion-input type="password" placeholder="Password"></ion-input>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button round item-start id="login_btn">Login</button>
+                     </ion-col>
+                        <ion-col>
+                            <button ion-button round item-end id="register_btn">Register</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </form>
+    <div h-align="center">
+        <img img-size="logo" src="../../assets/imgs/ws.png" align="bottom"/>
+    </div>
+</ion-content>
