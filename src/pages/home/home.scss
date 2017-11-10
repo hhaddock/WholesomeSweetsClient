@@ -18,7 +18,7 @@ page-home {
 
 	[ img-size="logo" ] {
 		width     : 80%;
-		margin-top: 40%;
+		margin: 20% 0;
 	}
 
 	[ h-align="center" ] {
@@ -62,7 +62,7 @@ page-home {
 	.text-input::-moz-placeholder {
 	  	color: color( $colors, light-pink-red );
 	}
-	
+
 	.text-input:-ms-input-placeholder {
 	  	color: color( $colors, light-pink-red );
 	}
