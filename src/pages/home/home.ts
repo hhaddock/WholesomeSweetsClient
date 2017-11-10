@@ -27,7 +27,7 @@ export class HomePage {
 	loadRegisterPage(): void 
 	{
 		console.log( 'Register' )
-		let modal = this.modalCtrl.create( RegisterPage, { usrnm: this.usrnm } )
+		let modal = this.modalCtrl.create( RegisterPage )
 		modal.present()
 	}
 }
