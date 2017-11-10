@@ -14,3 +14,16 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+[ bg-color="lred" ] {
+	background-color: #76272D;
+}
+[ bg-color="red" ] {
+	background-color: #5E2A2E;
+	color: #F3D9D9;
+}
+.list-ios .item-block .item-inner {
+	border-color: #F3D9D9;
+}
+.item, .item-divider {
+	border-color: #F3D9D9;
+}
