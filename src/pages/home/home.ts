@@ -23,7 +23,6 @@ export class HomePage
 
 	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http ) 
 	{
-
 	}
 
 	//called when login button is pressed
@@ -39,11 +38,12 @@ export class HomePage
 		}
 	}
 
+	
 	postRequest(): void
 	{
 		var headers = new Headers()
 		headers.append( 'Accept', 'application/json' )
-		headers.append( 'Content-Type', 'application/json' )
+		headers.append( 'Content-Type', 'application/x-www-form-urlencoded' )
 		let options = new RequestOptions( { headers: headers } )
 
 		let post_params = {
@@ -51,7 +51,7 @@ export class HomePage
 			pass: this.psswd
 		}
 
-		this.httpCtrl.post( 'http://100.64.9.72:3000/api/login', post_params, options )
+		this.httpCtrl.post( 'http://localhost:3000/api/login', post_params, options )
 		.subscribe( data => {
 			console.log( data[ '_body' ] )
 		}, error => {
