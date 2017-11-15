@@ -8,19 +8,21 @@
 
 import { Component } from '@angular/core';
 import { NavController, ModalController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { RegisterPage } from '../register/register';
 
 @Component({
 	selector: 'page-home',
 	templateUrl: 'home.html'
 })
-export class HomePage {
-
+export class HomePage 
+{
 	//we could make this an object -> login_info: any
 	usrnm: string = ''
 	psswd: string = ''
 
-	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController ) {
+	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http ) 
+	{
 
 	}
 
@@ -31,7 +33,30 @@ export class HomePage {
 		{
 			this.showAlert( 'Input Error', 'All inputs are required' )
 		}
-		// else { login() }
+		else 
+		{
+			this.postRequest()
+		}
+	}
+
+	postRequest(): void
+	{
+		var headers = new Headers()
+		headers.append( 'Accept', 'application/json' )
+		headers.append( 'Content-Type', 'application/json' )
+		let options = new RequestOptions( { headers: headers } )
+
+		let post_params = {
+			user: this.usrnm,
+			pass: this.psswd
+		}
+
+		this.httpCtrl.post( 'http://100.64.9.72:3000/api/login', post_params, options )
+		.subscribe( data => {
+			console.log( data[ '_body' ] )
+		}, error => {
+			console.log( error )
+		})
 	}
 
 	//tells the user whats wrong with the input fields
