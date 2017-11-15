@@ -43,7 +43,7 @@ export class HomePage
 	{
 		var headers = new Headers()
 		headers.append( 'Accept', 'application/json' )
-		headers.append( 'Content-Type', 'application/x-www-form-urlencoded' )
+		headers.append( 'Content-Type', 'application/json' )
 		let options = new RequestOptions( { headers: headers } )
 
 		let post_params = {
