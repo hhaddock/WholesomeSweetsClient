@@ -51,7 +51,7 @@ export class HomePage
 			pass: this.psswd
 		}
 
-		this.httpCtrl.post( 'http://localhost:3000/api/login', post_params, options )
+		this.httpCtrl.post( 'http://localhost:8100/api/login', post_params, options )
 		.subscribe( data => {
 			console.log( data[ '_body' ] )
 		}, error => {
