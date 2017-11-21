@@ -1,11 +1,3 @@
-/** David 11/10/17
- * Ready for DB connection.
- * Functions for data retrieval and validation are set up.
- * Some UI feedback is set up:
- *	* Inputs are empty or invalid
- *	* There account has been created if they registered
-**/
-
 import { Component } from '@angular/core';
 import { NavController, ModalController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -18,7 +10,7 @@ import { RegisterPage } from '../register/register';
 export class HomePage
 {
 	//we could make this an object -> login_info: any
-	usrnm: string = ''
+	email: string = '' //this needs to be email
 	psswd: string = ''
 
 	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http )
@@ -28,7 +20,7 @@ export class HomePage
 	//called when login button is pressed
 	attemptLogin(): void
 	{
-		if( this.inputisEmpty( this.usrnm ) || this.inputisEmpty( this.psswd ) ) //if either are empty or fail regex test, alert user
+		if( this.inputisEmpty( this.email ) || this.inputisEmpty( this.psswd ) ) //if either are empty or fail regex test, alert user
 		{
 			this.showAlert( 'Input Error', 'All inputs are required' )
 		}
@@ -47,11 +39,11 @@ export class HomePage
 		let options = new RequestOptions( { headers: headers } )
 
 		let post_params = {
-			user: this.usrnm,
+			email: this.email,
 			pass: this.psswd
 		}
 
-		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/api/login', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com/user/login', JSON.stringify( post_params ), options )
 		.subscribe( data => {
 			console.log( data[ '_body' ] )
 		}, error => {
@@ -97,7 +89,7 @@ export class HomePage
 		modal.onDidDismiss( data => {
 			if( data.usrnm != '' && data.psswd != '' ) //if data is empty then the registration was cancelled
 			{
-				this.usrnm = data.usrnm
+				this.email = data.usrnm
 				this.psswd = data.psswd
 				this.showRegistrationConfirm()
 			}
@@ -112,13 +104,13 @@ export class HomePage
 		/** /^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/
 		 * This will change at some point to be more secure
 		 * but for now it only allows letters (a-zA-z),
-		 * numbers, and [ !, @, #, $, %, ^, &, * ].
+		 * numbers, and [ !, @, #, $, %, ^, &, *, . ].
 		 *
 		 * Eventually it will require a certain number of
 		 * characters that contains capital letters,
 		 * special chars, etc.
 		**/
-		let re = /^[\w!@#$%^&*]+$/
+		let re = /^[\w!@#$%^&*.]+$/
 		return !re.test( str )
 	}
 }
