@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" persistent=true>
     <ion-header>
         <ion-toolbar>
             <ion-title>Menu</ion-title>
@@ -12,6 +12,11 @@
             </button>
         </ion-list>
     </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <button type="button" menuClose round id="logout_btn" (click)="openPage(pages[0])">Logout</button>
+        </ion-toolbar>
+    </ion-footer>
 
 </ion-menu>
 

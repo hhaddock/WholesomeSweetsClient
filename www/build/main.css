@@ -60502,6 +60502,18 @@ ion-navbar.toolbar {
   background-color: #76272D;
 }
 
+#logout_btn {
+  background-color: #89abc2;
+  color: #3d5e76;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #3d5e76;
+  -webkit-box-shadow: inset 0 0 4px #3d5e76;
+  box-shadow: inset 0 0 4px #3d5e76;
+  font-family: Helvetica;
+  height: 30px;
+}
+
 .menu-item {
   background-color: #5E2A2E;
   color: #F3D9D9;
@@ -60617,6 +60629,95 @@ page-home .toolbar-title {
 }
 
 page-home .bar-button-default {
+  color: #89abc2;
+}
+
+page-login [bg-color="red"] {
+  background-color: #5E2A2E;
+}
+
+page-login .login-input {
+  background-color: #F3D9D9;
+  margin: 5px 0px;
+  border-radius: 6px;
+  padding: 3px;
+  font-size: 1.5em;
+  border: 1px solid #bf404a;
+  -webkit-box-shadow: inset 0 0 4px #bf404a;
+  box-shadow: inset 0 0 4px #bf404a;
+  text-indent: 10px;
+  color: #4d191e;
+  font-family: Helvetica;
+}
+
+page-login [img-size="logo"] {
+  width: 80%;
+  margin: 20% 0;
+}
+
+page-login [h-align="center"] {
+  text-align: center;
+}
+
+page-login .card-content {
+  padding: 0;
+}
+
+page-login .input-card {
+  background-color: #76272D;
+  text-align: center;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-top: 20px;
+  border: 2px solid #4d191e;
+  -webkit-box-shadow: inset 0 0 4px #4d191e;
+  box-shadow: inset 0 0 4px #4d191e;
+}
+
+page-login #login_btn {
+  background-color: #85cc33;
+  color: #507a1f;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #507a1f;
+  -webkit-box-shadow: inset 0 0 4px #507a1f;
+  box-shadow: inset 0 0 4px #507a1f;
+  font-family: Helvetica;
+}
+
+page-login #register_btn {
+  background-color: #89abc2;
+  color: #3d5e76;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #3d5e76;
+  -webkit-box-shadow: inset 0 0 4px #3d5e76;
+  box-shadow: inset 0 0 4px #3d5e76;
+  font-family: Helvetica;
+}
+
+page-login .text-input::-moz-placeholder {
+  color: #d27981;
+}
+
+page-login .text-input:-ms-input-placeholder {
+  color: #d27981;
+}
+
+page-login .text-input::-webkit-input-placeholder {
+  color: #d27981;
+}
+
+page-login .toolbar-background {
+  background-color: #270c0f;
+}
+
+page-login .toolbar-title {
+  color: #F3D9D9;
+  font-family: Helvetica;
+}
+
+page-login .bar-button-default {
   color: #89abc2;
 }
 

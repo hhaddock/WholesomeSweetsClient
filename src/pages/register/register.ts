@@ -71,7 +71,7 @@ export class RegisterPage {
 			}
 			else
 			{
-				this.viewCtrl.dismiss( { usrnm: this.email, psswd: this.psswd } )
+				this.viewCtrl.dismiss( { email: this.email, psswd: this.psswd } )
 			}
 		}, error => {
 			console.log( 'ERROR: ' + error )
@@ -107,7 +107,7 @@ export class RegisterPage {
 	//called when the user presses cancel
 	dismiss(): void
 	{
-		this.viewCtrl.dismiss( { usrnm: '', psswd: '' } )
+		this.viewCtrl.dismiss( { email: '', psswd: '' } )
 	}
 
 }
