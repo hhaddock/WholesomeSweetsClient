@@ -43,11 +43,15 @@ export class HomePage
 			pass: this.psswd
 		}
 
-		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com/user/login', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( 'http://localhost:3000/user/login', JSON.stringify( post_params ), options )
 		.subscribe( data => {
-			console.log( data[ '_body' ] )
+			let status = data[ '_body' ]
+			if( status != 'true' )
+			{
+				this.showAlert( 'Login Failed', 'Username or Password is incorrect' )
+			}
 		}, error => {
-			console.log( error )
+			console.log( 'error: ' + error )
 		})
 	}
 

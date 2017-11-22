@@ -1,15 +1,6 @@
-/** David 11/10/17
- * Ready for DB connection.
- * Functions for data retrieval and validation are set up.
- * Some UI feedback for the user has been set up:
- *	* Inputs are empty
- *	* Invalid email
- *	* Passwords don't match
- * Registration modal is set up with cancel option.
-**/
-
 import { Component } from '@angular/core';
 import { NavParams, ViewController, AlertController } from 'ionic-angular';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
 	selector: 'page-register',
@@ -22,7 +13,8 @@ export class RegisterPage {
 	psswd: string = ''
 	cnfrm: string = ''
 
-	constructor( private navParams: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController ) {
+	constructor( private navParams: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private httpCtrl: Http )
+	{
 	}
 
 	attemptRegistration(): void
@@ -51,9 +43,39 @@ export class RegisterPage {
 		}
 		else
 		{
+			this.sendRegistrationRequest()
 			//pass new username and password back to login for immediate login
-			this.viewCtrl.dismiss( { usrnm: this.usrnm, psswd: this.psswd } )
+			//this.viewCtrl.dismiss( { usrnm: this.email, psswd: this.psswd } )
 		}
+	}
+
+	sendRegistrationRequest(): void
+	{
+		var headers = new Headers()
+		headers.append( 'Accept', 'application/json' )
+		headers.append( 'Content-Type', 'application/json' )
+		let options = new RequestOptions( { headers: headers } )
+
+		let post_params = {
+			alias: this.usrnm,
+			email: this.email,
+			pass : this.psswd
+		}
+
+		this.httpCtrl.post( 'http://localhost:3000/user/signup', JSON.stringify( post_params ), options )
+		.subscribe( data => {
+			let status = data[ '_body' ]
+			if( status != '' )
+			{
+				this.showAlert( 'Registration Failed', status )
+			}
+			else
+			{
+				this.viewCtrl.dismiss( { usrnm: this.email, psswd: this.psswd } )
+			}
+		}, error => {
+			console.log( 'ERROR: ' + error )
+		})
 	}
 
 	showAlert( title, msg ): void
