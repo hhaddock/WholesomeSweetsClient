@@ -4,50 +4,37 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>Home</ion-title>
+        <ion-buttons end>
+            <button ion-button>
+                <ion-icon name="md-cart" clear></ion-icon>
+                <ion-badge>{{cart}}</ion-badge>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content bg-color="red">
-    <!--
-    <form (ngSubmit)="attemptLogin()">
-
-        Card for text inputs
-        <ion-card class="input-card">
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <ion-item class="home-input">
-                                <ion-input type="text" placeholder="Email" [(ngModel)]="email" name="email"></ion-input>
-                            </ion-item>
-                            <ion-item class="home-input">
-                                <ion-input type="password" placeholder="Password" [(ngModel)]="psswd" name="psswd"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-
-        Card for login and register buttons
-        <ion-card class="input-card">
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <button type="submit" ion-button round item-start id="login_btn">Login</button>
-                        </ion-col>
-                        <ion-col>
-                            <button type="button" ion-button round item-end id="register_btn" (click)="loadRegisterPage()">Register</button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-
-    </form>
-    <div h-align="center">
-        <img img-size="logo" src="../../assets/imgs/ws.png" align="bottom"/>
-    </div>
-    -->
+    <ion-card bg-color="pink" *ngFor="let item of inventory">
+        <img src={{item.pic}} />
+        <ion-card-content>
+            <ion-card-title card-title>
+                {{item.title}}
+            </ion-card-title>
+            <p card-description>
+                {{item.descr}}
+            </p>
+            <hr>
+            <ion-grid card-buttons>
+                <ion-row>
+                    <button ion-button id="add-btn" (click)="bumpCounter( item )">
+                        <ion-icon name="md-add-circle"></ion-icon>
+                    </button>
+                    <strong quantity>{{item.count}}</strong>
+                    <button ion-button id="sub-btn" (click)="decrCounter( item )">
+                        <ion-icon name="md-remove-circle"></ion-icon>
+                    </button>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

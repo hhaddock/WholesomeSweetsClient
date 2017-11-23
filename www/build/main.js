@@ -24,19 +24,38 @@ var HomePage = (function () {
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
         this.active_user = '';
+        this.cart = 0;
         this.active_user = this.navParams.get('alias');
         console.log(this.active_user);
+        this.inventory = [
+            { pic: 'assets/imgs/cookies.jpg', title: 'Cookies', descr: 'These are some tasty cookies', count: 0 },
+            { pic: 'assets/imgs/brownies.jpg', title: 'Brownies', descr: 'These are some tasty brownies', count: 0 },
+            { pic: 'assets/imgs/krispie.jpg', title: 'Krispies', descr: 'These are some tasty krispies', count: 0 }
+        ];
     }
     HomePage.prototype.ionViewWillEnter = function () {
         this.viewCtrl.showBackButton(false);
     };
+    HomePage.prototype.bumpCounter = function (item) {
+        if (item.count < 4) {
+            this.cart++;
+            item.count++;
+        }
+    };
+    HomePage.prototype.decrCounter = function (item) {
+        if (item.count > 0) {
+            this.cart--;
+            item.count--;
+        }
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Home</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <!--\n    <form (ngSubmit)="attemptLogin()">\n\n        Card for text inputs\n        <ion-card class="input-card">\n            <ion-card-content>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col>\n                            <ion-item class="home-input">\n                                <ion-input type="text" placeholder="Email" [(ngModel)]="email" name="email"></ion-input>\n                            </ion-item>\n                            <ion-item class="home-input">\n                                <ion-input type="password" placeholder="Password" [(ngModel)]="psswd" name="psswd"></ion-input>\n                            </ion-item>\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n            </ion-card-content>\n        </ion-card>\n\n        Card for login and register buttons\n        <ion-card class="input-card">\n            <ion-card-content>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col>\n                            <button type="submit" ion-button round item-start id="login_btn">Login</button>\n                        </ion-col>\n                        <ion-col>\n                            <button type="button" ion-button round item-end id="register_btn" (click)="loadRegisterPage()">Register</button>\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n            </ion-card-content>\n        </ion-card>\n\n    </form>\n    <div h-align="center">\n        <img img-size="logo" src="../../assets/imgs/ws.png" align="bottom"/>\n    </div>\n    -->\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Home</ion-title>\n        <ion-buttons end>\n            <button ion-button>\n                <ion-icon name="md-cart" clear></ion-icon>\n                <ion-badge>{{cart}}</ion-badge>\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-card bg-color="pink" *ngFor="let item of inventory">\n        <img src={{item.pic}} />\n        <ion-card-content>\n            <ion-card-title card-title>\n                {{item.title}}\n            </ion-card-title>\n            <p card-description>\n                {{item.descr}}\n            </p>\n            <hr>\n            <ion-grid card-buttons>\n                <ion-row>\n                    <button ion-button id="add-btn" (click)="bumpCounter( item )">\n                        <ion-icon name="md-add-circle"></ion-icon>\n                    </button>\n                    <strong quantity>{{item.count}}</strong>\n                    <button ion-button id="sub-btn" (click)="decrCounter( item )">\n                        <ion-icon name="md-remove-circle"></ion-icon>\n                    </button>\n                </ion-row>\n            </ion-grid>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -468,7 +487,7 @@ var MyApp = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/`<ion-menu [content]="content" persistent=true>\n    <ion-header>\n        <ion-toolbar>\n            <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content bg-color="lred">\n        <ion-list>\n            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="menu-item">\n                {{p.title}}\n            </button>\n        </ion-list>\n    </ion-content>\n    <ion-footer>\n        <ion-toolbar>\n            <button type="button" menuClose round id="logout_btn" (click)="openPage(pages[0])">Logout</button>\n        </ion-toolbar>\n    </ion-footer>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/`<ion-menu [content]="content" persistent=true>\n    <ion-header>\n        <ion-toolbar>\n            <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content bg-color="lred">\n        <ion-list>\n            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="menu-item">\n                {{p.title}}\n            </button>\n        </ion-list>\n    </ion-content>\n    <ion-footer>\n        <ion-toolbar>\n            <button type="button" menuClose round id="logout_btn" (click)="openPage(pages[0])"><strong>Logout</strong></button>\n        </ion-toolbar>\n    </ion-footer>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);

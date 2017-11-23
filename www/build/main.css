@@ -60547,6 +60547,43 @@ page-home [bg-color="red"] {
   background-color: #5E2A2E;
 }
 
+page-home [bg-color="pink"] {
+  background-color: #F3D9D9;
+}
+
+page-home [card-title] {
+  margin-left: 10px;
+}
+
+page-home [card-description] {
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+
+page-home [card-buttons] {
+  text-align: center;
+}
+
+page-home [quantity] {
+  vertical-align: middle;
+  font-size: 2.5em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+page-home .counter-btn {
+  width: 20%;
+  height: 100%;
+}
+
+page-home #add-btn {
+  background-color: #85cc33;
+}
+
+page-home #sub-btn {
+  background-color: #da8b93;
+}
+
 page-home .home-input {
   background-color: #F3D9D9;
   margin: 5px 0px;
