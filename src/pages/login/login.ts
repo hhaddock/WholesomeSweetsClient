@@ -11,7 +11,7 @@ import { HomePage } from '../home/home';
 export class LoginPage
 {
 	//we could make this an object -> login_info: any
-	email: string = '' //this needs to be email
+	email: string = ''
 	psswd: string = ''
 
 	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http )
