@@ -15,13 +15,13 @@
 
 <ion-content bg-color="red">
     <ion-card bg-color="pink" *ngFor="let item of inventory">
-        <img src={{item.pic}} />
+        <img src={{item.path_to_picture}} />
         <ion-card-content>
             <ion-card-title card-title>
-                {{item.title}}
+                {{item.product}}
             </ion-card-title>
             <p card-description>
-                {{item.descr}}
+                {{item.description}}
             </p>
             <hr>
             <ion-grid card-buttons>
@@ -32,7 +32,7 @@
                         </button>
                     </ion-col>
                     <ion-col>
-                        <strong quantity>{{item.count}}</strong>
+                        <strong quantity>{{cart}}</strong>
                     </ion-col>
                     <ion-col>
                         <button ion-button id="sub-btn" (click)="decrCounter( item )">

@@ -10,34 +10,34 @@ import { RegisterPage } from '../register/register';
 export class HomePage
 {
 	active_user: string = ''
-	inventory: Array<{ pic: string, title: string, descr: string, count: number }>
+	inventory = []
 	cart: number = 0
 
-	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController )
+	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
 		this.active_user = this.navParams.get( 'alias' )
 		console.log( this.active_user )
-
-		this.inventory = [
-			{ pic: 'assets/imgs/cookies.jpg', title: 'Cookies', descr: 'These are some tasty cookies', count: 0 },
-			{ pic: 'assets/imgs/brownies.jpg', title: 'Brownies', descr: 'These are some tasty brownies', count: 0 },
-			{ pic: 'assets/imgs/krispie.jpg', title: 'Krispies', descr: 'These are some tasty krispies', count: 0 }
-		]
 	}
 
 	ionViewWillEnter()
 	{
 		this.viewCtrl.showBackButton( false )
+		this.loadProducts()
 	}
 
-	loadProducts()
+	loadProducts(): void
 	{
 		var headers = new Headers()
 		headers.append( 'Accept', 'application/json' )
 		headers.append( 'Content-Type', 'application/json' )
 		let options = new RequestOptions( { headers: headers } )
 
-
+		this.httpCtrl.post( 'http://localhost:3000/product/products', options )
+		.subscribe( data => {
+			this.inventory = JSON.parse( data[ '_body' ] )
+		}, error => {
+			console.log( 'Error loading products: ' + error )
+		})
 	}
 
 	bumpCounter( item ): void
