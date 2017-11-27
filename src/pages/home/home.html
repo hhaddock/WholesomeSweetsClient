@@ -26,13 +26,19 @@
             <hr>
             <ion-grid card-buttons>
                 <ion-row>
-                    <button ion-button id="add-btn" (click)="bumpCounter( item )">
-                        <ion-icon name="md-add-circle"></ion-icon>
-                    </button>
-                    <strong quantity>{{item.count}}</strong>
-                    <button ion-button id="sub-btn" (click)="decrCounter( item )">
-                        <ion-icon name="md-remove-circle"></ion-icon>
-                    </button>
+                    <ion-col>
+                        <button ion-button id="add-btn" (click)="bumpCounter( item )">
+                            <ion-icon name="md-add-circle"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <strong quantity>{{item.count}}</strong>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button id="sub-btn" (click)="decrCounter( item )">
+                            <ion-icon name="md-remove-circle"></ion-icon>
+                        </button>
+                    </ion-col>
                 </ion-row>
             </ion-grid>
         </ion-card-content>

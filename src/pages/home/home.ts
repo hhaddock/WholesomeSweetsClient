@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { RegisterPage } from '../register/register';
 
 @Component({
@@ -27,6 +28,16 @@ export class HomePage
 	ionViewWillEnter()
 	{
 		this.viewCtrl.showBackButton( false )
+	}
+
+	loadProducts()
+	{
+		var headers = new Headers()
+		headers.append( 'Accept', 'application/json' )
+		headers.append( 'Content-Type', 'application/json' )
+		let options = new RequestOptions( { headers: headers } )
+
+
 	}
 
 	bumpCounter( item ): void
