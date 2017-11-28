@@ -60507,9 +60507,6 @@ ion-navbar.toolbar {
   color: #3d5e76;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #3d5e76;
-  -webkit-box-shadow: inset 0 0 4px #3d5e76;
-  box-shadow: inset 0 0 4px #3d5e76;
   font-family: Helvetica;
   height: 30px;
 }
@@ -60566,9 +60563,6 @@ page-cart #cnfrm-btn {
   color: #3d5e76;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #3d5e76;
-  -webkit-box-shadow: inset 0 0 4px #3d5e76;
-  box-shadow: inset 0 0 4px #3d5e76;
   font-family: Helvetica;
 }
 
@@ -60708,9 +60702,6 @@ page-login .login-input {
   border-radius: 6px;
   padding: 3px;
   font-size: 1.5em;
-  border: 1px solid #bf404a;
-  -webkit-box-shadow: inset 0 0 4px #bf404a;
-  box-shadow: inset 0 0 4px #bf404a;
   text-indent: 10px;
   color: #4d191e;
   font-family: Helvetica;
@@ -60735,9 +60726,6 @@ page-login .input-card {
   padding: 2px 5px;
   border-radius: 4px;
   margin-top: 20px;
-  border: 2px solid #4d191e;
-  -webkit-box-shadow: inset 0 0 4px #4d191e;
-  box-shadow: inset 0 0 4px #4d191e;
 }
 
 page-login #login_btn {
@@ -60745,9 +60733,6 @@ page-login #login_btn {
   color: #507a1f;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #507a1f;
-  -webkit-box-shadow: inset 0 0 4px #507a1f;
-  box-shadow: inset 0 0 4px #507a1f;
   font-family: Helvetica;
 }
 
@@ -60756,9 +60741,6 @@ page-login #register_btn {
   color: #3d5e76;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #3d5e76;
-  -webkit-box-shadow: inset 0 0 4px #3d5e76;
-  box-shadow: inset 0 0 4px #3d5e76;
   font-family: Helvetica;
 }
 
@@ -60801,9 +60783,6 @@ page-register .home-input {
   border-radius: 6px;
   padding: 3px;
   font-size: 1.5em;
-  border: 1px solid #bf404a;
-  -webkit-box-shadow: inset 0 0 4px #bf404a;
-  box-shadow: inset 0 0 4px #bf404a;
   text-indent: 10px;
   color: #4d191e;
   font-family: Helvetica;
@@ -60815,9 +60794,6 @@ page-register .input-card {
   padding: 2px 5px;
   border-radius: 4px;
   margin-top: 20px;
-  border: 2px solid #4d191e;
-  -webkit-box-shadow: inset 0 0 4px #4d191e;
-  box-shadow: inset 0 0 4px #4d191e;
 }
 
 page-register #confirm_btn {
@@ -60825,9 +60801,6 @@ page-register #confirm_btn {
   color: #3d5e76;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #3d5e76;
-  -webkit-box-shadow: inset 0 0 4px #3d5e76;
-  box-shadow: inset 0 0 4px #3d5e76;
   font-family: Helvetica;
 }
 
@@ -60836,9 +60809,6 @@ page-register #cancel_btn {
   color: #9a323c;
   border-radius: 6px;
   width: 100%;
-  border: 1px solid #9a323c;
-  -webkit-box-shadow: inset 0 0 4px #9a323c;
-  box-shadow: inset 0 0 4px #9a323c;
   font-family: Helvetica;
 }
 

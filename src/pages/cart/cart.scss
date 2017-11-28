@@ -22,8 +22,8 @@ page-cart {
 		color           : color( $colors, register-btn, contrast );
 		border-radius   : 6px;
 		width           : 100%;
-		border          : 1px solid color( $colors, register-btn, contrast );
-		box-shadow      : inset 0 0 4px color( $colors, register-btn, contrast );
+		//border          : 1px solid color( $colors, register-btn, contrast );
+		//box-shadow      : inset 0 0 4px color( $colors, register-btn, contrast );
 		font-family     : map-get( $fonts, helv );
 	}
 }

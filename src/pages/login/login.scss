@@ -9,8 +9,8 @@ page-login {
 		border-radius   : 6px;
 		padding         : 3px;
 		font-size       : 1.5em;
-		border          : 1px solid color( $colors, pink-red );
-		box-shadow      : inset 0 0 4px color( $colors, pink-red );
+		//border          : 1px solid color( $colors, pink-red );
+		//box-shadow      : inset 0 0 4px color( $colors, pink-red );
 		text-indent     : 10px;
 		color           : color( $colors, dark-maroon );
 		font-family     : map-get( $fonts, helv );
@@ -35,8 +35,8 @@ page-login {
 		padding         : 2px 5px;
 		border-radius   : 4px;
 		margin-top      : 20px;
-		border          : 2px solid color( $colors, dark-maroon );
-		box-shadow      : inset 0 0 4px color( $colors, dark-maroon );
+		//border          : 2px solid color( $colors, dark-maroon );
+		//box-shadow      : inset 0 0 4px color( $colors, dark-maroon );
 	}
 
 	#login_btn {
@@ -44,8 +44,8 @@ page-login {
 		color           : color( $colors, login-btn, contrast );
 		border-radius   : 6px;
 		width           : 100%;
-		border          : 1px solid color( $colors, login-btn, contrast );
-		box-shadow      : inset 0 0 4px color( $colors, login-btn, contrast );
+		//border          : 1px solid color( $colors, login-btn, contrast );
+		//box-shadow      : inset 0 0 4px color( $colors, login-btn, contrast );
 		font-family     : map-get( $fonts, helv );
 	}
 
@@ -54,8 +54,8 @@ page-login {
 		color           : color( $colors, register-btn, contrast );
 		border-radius   : 6px;
 		width           : 100%;
-		border          : 1px solid color( $colors, register-btn, contrast );
-		box-shadow      : inset 0 0 4px color( $colors, register-btn, contrast );
+		//border          : 1px solid color( $colors, register-btn, contrast );
+		//box-shadow      : inset 0 0 4px color( $colors, register-btn, contrast );
 		font-family     : map-get( $fonts, helv );
 	}
 
