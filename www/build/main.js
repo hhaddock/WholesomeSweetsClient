@@ -29,6 +29,7 @@ var HomePage = (function () {
         this.active_user = '';
         this.inventory = [];
         this.cart = 0;
+        this.cart_obj = [];
         this.active_user = this.navParams.get('alias');
         console.log(this.active_user);
     }
@@ -60,6 +61,10 @@ var HomePage = (function () {
             this.cart--;
             item.count--;
         }
+    };
+    HomePage.prototype.loadCart = function () {
+        var cart_name = this.active_user + '_cart';
+        this.cart_obj = (localStorage.getItem(cart_name) !== null) ? JSON.parse(localStorage.getItem(cart_name)) : [];
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -231,10 +236,9 @@ var LoginPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-login',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/login/login.html"*/`<ion-header>\n    <ion-navbar>\n        <ion-title>Login</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <form (ngSubmit)="attemptLogin()">\n\n        <!-- Card for text inputs -->\n        <ion-card class="input-card">\n            <ion-card-content>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col>\n                            <ion-item class="login-input">\n                                <ion-input type="text" placeholder="Email" [(ngModel)]="email" name="email"></ion-input>\n                            </ion-item>\n                            <ion-item class="login-input">\n                                <ion-input type="password" placeholder="Password" [(ngModel)]="psswd" name="psswd"></ion-input>\n                            </ion-item>\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n            </ion-card-content>\n        </ion-card>\n\n        <!-- Card for login and register buttons -->\n        <ion-card class="input-card">\n            <ion-card-content>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col>\n                            <button type="submit" ion-button round item-start id="login_btn">Login</button>\n                        </ion-col>\n                        <ion-col>\n                            <button type="button" ion-button round item-end id="register_btn" (click)="loadRegisterPage()">Register</button>\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n            </ion-card-content>\n        </ion-card>\n\n    </form>\n    <div h-align="center">\n        <img img-size="logo" src="../../assets/imgs/ws.png" align="bottom"/>\n    </div>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/login/login.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
     ], LoginPage);
     return LoginPage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=login.js.map

@@ -12,6 +12,7 @@ export class HomePage
 	active_user: string = ''
 	inventory = []
 	cart: number = 0
+	cart_obj = []
 
 	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
@@ -56,5 +57,11 @@ export class HomePage
 			this.cart--
 			item.count--
 		}
+	}
+
+	loadCart(): void
+	{
+		let cart_name = this.active_user + '_cart'
+		this.cart_obj = ( localStorage.getItem( cart_name ) !== null ) ? JSON.parse( localStorage.getItem( cart_name ) ) : []
 	}
 }
