@@ -60561,6 +60561,17 @@ page-cart #sub-btn {
   height: 80%;
 }
 
+page-cart #cnfrm-btn {
+  background-color: #89abc2;
+  color: #3d5e76;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #3d5e76;
+  -webkit-box-shadow: inset 0 0 4px #3d5e76;
+  box-shadow: inset 0 0 4px #3d5e76;
+  font-family: Helvetica;
+}
+
 page-home [bg-color="red"] {
   background-color: #5E2A2E;
 }
