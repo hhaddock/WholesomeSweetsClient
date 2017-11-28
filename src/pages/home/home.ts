@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { RegisterPage } from '../register/register';
+import { CartPage } from '../cart/cart';
 
 @Component({
 	selector: 'page-home',
@@ -36,6 +36,7 @@ export class HomePage
 		this.httpCtrl.post( 'http://localhost:3000/product/products', options )
 		.subscribe( data => {
 			this.inventory = JSON.parse( data[ '_body' ] )
+			this.loadCart()
 		}, error => {
 			console.log( 'Error loading products: ' + error )
 		})
@@ -47,6 +48,7 @@ export class HomePage
 		{
 			this.cart++
 			item.count++
+			this.updateCart()
 		}
 	}
 
@@ -56,6 +58,7 @@ export class HomePage
 		{
 			this.cart--
 			item.count--
+			this.updateCart()
 		}
 	}
 
@@ -63,5 +66,44 @@ export class HomePage
 	{
 		let cart_name = this.active_user + '_cart'
 		this.cart_obj = ( localStorage.getItem( cart_name ) !== null ) ? JSON.parse( localStorage.getItem( cart_name ) ) : []
+
+		Object.keys( this.cart_obj ).forEach( key => {
+			let cart_item = this.cart_obj[ key ]
+
+			Object.keys( this.inventory ).forEach( k => {
+				if( this.inventory[ k ].product == cart_item.product ) {
+					this.inventory[ k ].count = cart_item.count
+					this.cart += cart_item.count
+				}
+			})
+		})
+	}
+
+	updateCart(): void
+	{
+		let cart_name = this.active_user + '_cart'
+		this.cart_obj = []
+
+		Object.keys( this.inventory ).forEach( key => {
+			let current_item = this.inventory[ key ]
+
+			if( current_item.count > 0 ) {
+				this.cart_obj.push(
+					{
+						product: current_item.product,
+						count: current_item.count
+					}
+				)
+			}
+		})
+
+		localStorage.setItem( cart_name, JSON.stringify( this.cart_obj ) )
+	}
+
+	loadCartView(): void
+	{
+		this.navCtrl.push( CartPage, {
+			email: this.active_user
+		})
 	}
 }

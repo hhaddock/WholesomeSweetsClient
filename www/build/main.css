@@ -60543,6 +60543,10 @@ ion-navbar.toolbar {
   border-color: #270c0f;
 }
 
+page-cart [bg-color="red"] {
+  background-color: #5E2A2E;
+}
+
 page-home [bg-color="red"] {
   background-color: #5E2A2E;
 }
