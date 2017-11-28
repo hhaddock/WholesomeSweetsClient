@@ -111,7 +111,8 @@ export class HomePage
 				this.cart_obj.push({
 					product: current_item.product,
 					count  : current_item.count,
-					price  : current_item.price
+					price  : current_item.price,
+					pic    : current_item.path_to_picture
 				})
 			}
 		})

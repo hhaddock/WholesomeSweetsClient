@@ -60547,6 +60547,20 @@ page-cart [bg-color="red"] {
   background-color: #5E2A2E;
 }
 
+page-cart [bg-color="pink"] {
+  background-color: #F3D9D9;
+}
+
+page-cart #add-btn {
+  background-color: #85cc33;
+  height: 80%;
+}
+
+page-cart #sub-btn {
+  background-color: #da8b93;
+  height: 80%;
+}
+
 page-home [bg-color="red"] {
   background-color: #5E2A2E;
 }

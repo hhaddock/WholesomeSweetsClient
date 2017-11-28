@@ -109,7 +109,8 @@ var HomePage = (function () {
                 _this.cart_obj.push({
                     product: current_item.product,
                     count: current_item.count,
-                    price: current_item.price
+                    price: current_item.price,
+                    pic: current_item.path_to_picture
                 });
             }
         });
@@ -682,9 +683,27 @@ var CartPage = (function () {
         });
         console.log(this.cart_price);
     };
+    CartPage.prototype.bumpCounter = function (item) {
+        if (item.count < 4) {
+            item.count++;
+            this.cart_price += item.price;
+            this.updateCart();
+        }
+    };
+    CartPage.prototype.decrCounter = function (item) {
+        if (item.count > 1) {
+            item.count--;
+            this.cart_price -= item.price;
+            this.updateCart();
+        }
+    };
+    CartPage.prototype.updateCart = function () {
+        var cart_name = this.active_user + '_cart';
+        localStorage.setItem(cart_name, JSON.stringify(this.cart));
+    };
     CartPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart">\n            <h2>{{item.product}}</h2>\n            <h3>{{item.count}}</h3>\n            <p>{{item.price}}</p>\n            <p>{{item.count}}</p>\n        </ion-item>\n    </ion-list>\n    {{cart_price}}\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
+            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart" bg-color="pink">\n            <ion-thumbnail item-start>\n                <img src={{item.pic}} />\n            </ion-thumbnail>\n            <h2>{{item.product}} (x{{item.count}})</h2>\n            <p>$ {{item.price * item.count}}</p>\n            <button ion-button id="add-btn" item-end (click)="bumpCounter(item)">\n                <ion-icon name="md-add-circle"></ion-icon>\n            </button>\n            <button ion-button id="sub-btn" item-end (click)="decrCounter(item)">\n                <ion-icon name="md-remove-circle"></ion-icon>\n            </button>\n        </ion-item>\n    </ion-list>\n    {{cart_price}}\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
     ], CartPage);

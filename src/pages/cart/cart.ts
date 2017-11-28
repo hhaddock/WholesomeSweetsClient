@@ -38,4 +38,30 @@ export class CartPage
         })
         console.log( this.cart_price )
     }
+
+    bumpCounter( item ): void
+    {
+        if( item.count < 4 )
+        {
+            item.count++
+            this.cart_price += item.price
+            this.updateCart()
+        }
+    }
+
+    decrCounter( item ): void
+    {
+        if( item.count > 1 )
+        {
+            item.count--
+            this.cart_price -= item.price
+            this.updateCart()
+        }
+    }
+
+    updateCart(): void
+    {
+        let cart_name = this.active_user + '_cart'
+        localStorage.setItem( cart_name, JSON.stringify( this.cart ) )
+    }
 }

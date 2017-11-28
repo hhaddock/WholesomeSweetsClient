@@ -2,4 +2,18 @@ page-cart {
     [ bg-color="red" ] {
 		background-color: color( $colors, maroon );
 	}
+
+    [ bg-color="pink" ] {
+		background-color: color( $colors, nav-bar, contrast );
+	}
+
+    #add-btn {
+		background-color: color( $colors, login-btn, base );
+        height: 80%;
+	}
+
+    #sub-btn {
+		background-color: color( $colors, cancel-btn, base );
+        height: 80%;
+	}
 }
