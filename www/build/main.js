@@ -126,7 +126,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Home</ion-title>\n        <ion-buttons end>\n            <button ion-button (click)="loadCartView()">\n                <ion-icon name="md-cart" clear></ion-icon>\n                <ion-badge>{{cart}}</ion-badge>\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-card bg-color="pink" *ngFor="let item of inventory">\n        <img src={{item.path_to_picture}} />\n        <ion-card-content>\n            <ion-card-title card-title>\n                {{item.product}}\n            </ion-card-title>\n            <p card-description>\n                {{item.description}}\n            </p>\n            <hr>\n            <ion-grid card-buttons>\n                <ion-row>\n                    <ion-col>\n                        <button ion-button id="add-btn" (click)="bumpCounter( item )">\n                            <ion-icon name="md-add-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                    <ion-col>\n                        <strong quantity>{{item.count}}</strong>\n                    </ion-col>\n                    <ion-col>\n                        <button ion-button id="sub-btn" (click)="decrCounter( item )">\n                            <ion-icon name="md-remove-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Home</ion-title>\n        <ion-buttons end>\n            <button ion-button (click)="loadCartView()">\n                <ion-icon name="md-cart" clear></ion-icon>\n                <ion-badge>{{cart}}</ion-badge>\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-card bg-color="pink" *ngFor="let item of inventory">\n        <img src={{item.path_to_picture}} />\n        <ion-card-content>\n            <ion-card-title card-title>\n                {{item.product}} - $ {{item.price}}\n            </ion-card-title>\n            <p card-description>\n                {{item.description}}\n            </p>\n            <hr>\n            <ion-grid card-buttons>\n                <ion-row>\n                    <ion-col>\n                        <button ion-button id="add-btn" (click)="bumpCounter( item )">\n                            <ion-icon name="md-add-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                    <ion-col>\n                        <strong quantity>{{item.count}}</strong>\n                    </ion-col>\n                    <ion-col>\n                        <button ion-button id="sub-btn" (click)="decrCounter( item )">\n                            <ion-icon name="md-remove-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
     ], HomePage);
@@ -694,14 +694,25 @@ var CartPage = (function () {
         }
     };
     CartPage.prototype.decrCounter = function (item) {
-        if (item.count > 1) {
-            item.count--;
-            this.cart_price -= item.price;
-            this.updateCart();
-        }
+        item.count--;
+        this.cart_price -= item.price;
+        this.updateCart();
     };
     CartPage.prototype.updateCart = function () {
+        var _this = this;
         var cart_name = this.active_user + '_cart';
+        var temp_cart = this.cart;
+        this.cart = [];
+        Object.keys(temp_cart).forEach(function (key) {
+            if (temp_cart[key].count > 0) {
+                _this.cart.push({
+                    product: temp_cart[key].product,
+                    count: temp_cart[key].count,
+                    price: temp_cart[key].price,
+                    pic: temp_cart[key].pic
+                });
+            }
+        });
         localStorage.setItem(cart_name, JSON.stringify(this.cart));
     };
     CartPage = __decorate([

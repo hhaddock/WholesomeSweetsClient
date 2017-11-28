@@ -51,17 +51,30 @@ export class CartPage
 
     decrCounter( item ): void
     {
-        if( item.count > 1 )
-        {
-            item.count--
-            this.cart_price -= item.price
-            this.updateCart()
-        }
+        item.count--
+        this.cart_price -= item.price
+        this.updateCart()
     }
 
     updateCart(): void
     {
         let cart_name = this.active_user + '_cart'
+
+        let temp_cart = this.cart
+        this.cart = []
+        Object.keys( temp_cart ).forEach( key =>
+        {
+            if( temp_cart[ key ].count > 0 )
+            {
+                this.cart.push({
+                    product: temp_cart[ key ].product,
+                    count  : temp_cart[ key ].count,
+                    price  : temp_cart[ key ].price,
+                    pic    : temp_cart[ key ].pic
+                })
+            }
+        })
+
         localStorage.setItem( cart_name, JSON.stringify( this.cart ) )
     }
 }
