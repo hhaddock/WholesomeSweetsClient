@@ -53,11 +53,8 @@ export class LoginPage
 			}
             else
             {
-                this.navCtrl.push( HomePage,
-                    {
-                        alias: this.email
-                    }
-                )
+				localStorage.setItem( 'active_user', this.email )
+                this.navCtrl.push( HomePage )
             }
 		}, error => {
 			console.log( 'error: ' + error )

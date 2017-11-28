@@ -20,7 +20,7 @@ export class HomePage
 
 	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
-		this.active_user = this.navParams.get( 'alias' )
+		this.active_user = localStorage.getItem( 'active_user' )
 		console.log( this.active_user )
 	}
 
@@ -122,7 +122,6 @@ export class HomePage
 	loadCartView(): void
 	{
 		this.navCtrl.push( CartPage, {
-			email: this.active_user,
 			cart : this.cart_obj
 		})
 	}

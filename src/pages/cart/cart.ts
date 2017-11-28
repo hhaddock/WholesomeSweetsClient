@@ -15,7 +15,7 @@ export class CartPage
 
     constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
     {
-        this.active_user = this.navParams.get( 'email' )
+        this.active_user = localStorage.getItem( 'active_user' )
         this.cart = this.navParams.get( 'cart' )
         this.calculatePrice()
         console.log( this.active_user )
