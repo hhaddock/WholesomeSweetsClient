@@ -38,7 +38,11 @@ export class HomePage
 		headers.append( 'Content-Type', 'application/json' )
 		let options = new RequestOptions( { headers: headers } )
 
-		this.httpCtrl.post( 'http://localhost:3000/product/products', options )
+		let post_params = {
+			email: this.active_user
+		}
+
+		this.httpCtrl.post( 'http://localhost:3000/product/products', JSON.stringify( post_params ), options )
 		.subscribe( data => {
 			this.inventory = JSON.parse( data[ '_body' ] )
 			this.loadCart()

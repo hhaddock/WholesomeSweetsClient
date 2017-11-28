@@ -50,7 +50,10 @@ var HomePage = (function () {
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
         var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        this.httpCtrl.post('http://localhost:3000/product/products', options)
+        var post_params = {
+            email: this.active_user
+        };
+        this.httpCtrl.post('http://localhost:3000/product/products', JSON.stringify(post_params), options)
             .subscribe(function (data) {
             _this.inventory = JSON.parse(data['_body']);
             _this.loadCart();
