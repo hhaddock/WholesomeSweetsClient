@@ -9,10 +9,14 @@ import { CartPage } from '../cart/cart';
 })
 export class HomePage
 {
+	//string that holds the email of the active user
 	active_user: string = ''
-	inventory = []
+	//object that holds the products loaded form the DB
+	inventory: any = []
+	//number that holds the total number of products in the cart object
 	cart: number = 0
-	cart_obj = []
+	//object that holds the products that the user has added to their cart
+	cart_obj: any = []
 
 	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
@@ -22,6 +26,7 @@ export class HomePage
 
 	ionViewWillEnter()
 	{
+		//hides the back button so the user has access to the menu toggle
 		this.viewCtrl.showBackButton( false )
 		this.loadProducts()
 	}
@@ -65,18 +70,30 @@ export class HomePage
 	loadCart(): void
 	{
 		let cart_name = this.active_user + '_cart'
+		//loads the active user's cart
 		this.cart_obj = ( localStorage.getItem( cart_name ) !== null ) ? JSON.parse( localStorage.getItem( cart_name ) ) : []
 
-		Object.keys( this.cart_obj ).forEach( key => {
-			let cart_item = this.cart_obj[ key ]
+		Object.keys( this.cart_obj ).forEach( cart_key => {
+			let cart_item = this.cart_obj[ cart_key ]
 
-			Object.keys( this.inventory ).forEach( k => {
-				if( this.inventory[ k ].product == cart_item.product ) {
-					this.inventory[ k ].count = cart_item.count
+			Object.keys( this.inventory ).forEach( inv_key => {
+				/** If the current inventory item's product name matches
+				 *  the name of the current item in the user's cart then:
+				 *  	1. Set the inventory item's count equal to the
+				 *     	   current cart item's count
+				 *  	2. Set the current cart item's price equal to
+				 *         the current inventory item's price
+				 *   	3. Add the current cart item's count to the total
+				 *   	   number of items in the cart
+				**/
+				if( this.inventory[ inv_key ].product == cart_item.product )
+				{
+					this.inventory[ inv_key ].count = cart_item.count
+					this.cart_obj[ cart_key ].price = this.inventory[ inv_key ].price
 					this.cart += cart_item.count
 				}
-			})
-		})
+			}) //end inner for each
+		}) //end outter for each
 	}
 
 	updateCart(): void
@@ -87,13 +104,15 @@ export class HomePage
 		Object.keys( this.inventory ).forEach( key => {
 			let current_item = this.inventory[ key ]
 
-			if( current_item.count > 0 ) {
-				this.cart_obj.push(
-					{
-						product: current_item.product,
-						count: current_item.count
-					}
-				)
+			//If the current inventory item's count is greater than 0
+			//then push that item onto the cart object
+			if( current_item.count > 0 )
+			{
+				this.cart_obj.push({
+					product: current_item.product,
+					count  : current_item.count,
+					price  : current_item.price
+				})
 			}
 		})
 
@@ -103,7 +122,8 @@ export class HomePage
 	loadCartView(): void
 	{
 		this.navCtrl.push( CartPage, {
-			email: this.active_user
+			email: this.active_user,
+			cart : this.cart_obj
 		})
 	}
 }

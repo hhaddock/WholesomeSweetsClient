@@ -28,14 +28,19 @@ var HomePage = (function () {
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
         this.httpCtrl = httpCtrl;
+        //string that holds the email of the active user
         this.active_user = '';
+        //object that holds the products loaded form the DB
         this.inventory = [];
+        //number that holds the total number of products in the cart object
         this.cart = 0;
+        //object that holds the products that the user has added to their cart
         this.cart_obj = [];
         this.active_user = this.navParams.get('alias');
         console.log(this.active_user);
     }
     HomePage.prototype.ionViewWillEnter = function () {
+        //hides the back button so the user has access to the menu toggle
         this.viewCtrl.showBackButton(false);
         this.loadProducts();
     };
@@ -70,16 +75,27 @@ var HomePage = (function () {
     HomePage.prototype.loadCart = function () {
         var _this = this;
         var cart_name = this.active_user + '_cart';
+        //loads the active user's cart
         this.cart_obj = (localStorage.getItem(cart_name) !== null) ? JSON.parse(localStorage.getItem(cart_name)) : [];
-        Object.keys(this.cart_obj).forEach(function (key) {
-            var cart_item = _this.cart_obj[key];
-            Object.keys(_this.inventory).forEach(function (k) {
-                if (_this.inventory[k].product == cart_item.product) {
-                    _this.inventory[k].count = cart_item.count;
+        Object.keys(this.cart_obj).forEach(function (cart_key) {
+            var cart_item = _this.cart_obj[cart_key];
+            Object.keys(_this.inventory).forEach(function (inv_key) {
+                /** If the current inventory item's product name matches
+                 *  the name of the current item in the user's cart then:
+                 *  	1. Set the inventory item's count equal to the
+                 *     	   current cart item's count
+                 *  	2. Set the current cart item's price equal to
+                 *         the current inventory item's price
+                 *   	3. Add the current cart item's count to the total
+                 *   	   number of items in the cart
+                **/
+                if (_this.inventory[inv_key].product == cart_item.product) {
+                    _this.inventory[inv_key].count = cart_item.count;
+                    _this.cart_obj[cart_key].price = _this.inventory[inv_key].price;
                     _this.cart += cart_item.count;
                 }
-            });
-        });
+            }); //end inner for each
+        }); //end outter for each
     };
     HomePage.prototype.updateCart = function () {
         var _this = this;
@@ -87,10 +103,13 @@ var HomePage = (function () {
         this.cart_obj = [];
         Object.keys(this.inventory).forEach(function (key) {
             var current_item = _this.inventory[key];
+            //If the current inventory item's count is greater than 0
+            //then push that item onto the cart object
             if (current_item.count > 0) {
                 _this.cart_obj.push({
                     product: current_item.product,
-                    count: current_item.count
+                    count: current_item.count,
+                    price: current_item.price
                 });
             }
         });
@@ -98,7 +117,8 @@ var HomePage = (function () {
     };
     HomePage.prototype.loadCartView = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__cart_cart__["a" /* CartPage */], {
-            email: this.active_user
+            email: this.active_user,
+            cart: this.cart_obj
         });
     };
     HomePage = __decorate([
@@ -640,15 +660,28 @@ var CartPage = (function () {
         this.httpCtrl = httpCtrl;
         this.active_user = '';
         this.cart = [];
+        this.cart_price = 0;
         this.active_user = this.navParams.get('email');
+        this.cart = this.navParams.get('cart');
+        this.calculatePrice();
         console.log(this.active_user);
     }
     CartPage.prototype.ionViewWillEnter = function () {
         this.viewCtrl.showBackButton(false);
     };
+    CartPage.prototype.calculatePrice = function () {
+        var _this = this;
+        this.cart_price = 0;
+        Object.keys(this.cart).forEach(function (key) {
+            var product_count = _this.cart[key].count;
+            var product_price = _this.cart[key].price;
+            _this.cart_price += (product_count * product_price);
+        });
+        console.log(this.cart_price);
+    };
     CartPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
+            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart">\n            <h2>{{item.product}}</h2>\n            <h3>{{item.count}}</h3>\n            <p>{{item.price}}</p>\n            <p>{{item.count}}</p>\n        </ion-item>\n    </ion-list>\n    {{cart_price}}\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
     ], CartPage);
