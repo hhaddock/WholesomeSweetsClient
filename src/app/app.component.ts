@@ -6,6 +6,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { OrdersPage } from '../pages/orders/orders';
+import { CartPage } from '../pages/cart/cart';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,8 +24,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Login', component: LoginPage },
-      { title: 'Home', component: HomePage }
+      //{ title: 'Login', component: LoginPage },
+      { title: 'Home', component: HomePage },
+      { title: 'Orders', component: OrdersPage },
+      { title: 'Cart', component: CartPage }
     ];
 
   }

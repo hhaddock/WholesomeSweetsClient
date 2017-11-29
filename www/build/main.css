@@ -60769,6 +60769,10 @@ page-login .bar-button-default {
   color: #89abc2;
 }
 
+page-orders [bg-color="red"] {
+  background-color: #5E2A2E;
+}
+
 page-register [bg-color="maroon"] {
   background-color: #5E2A2E;
 }

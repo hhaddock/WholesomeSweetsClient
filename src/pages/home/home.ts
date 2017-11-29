@@ -21,7 +21,6 @@ export class HomePage
 	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
 		this.active_user = localStorage.getItem( 'active_user' )
-		console.log( this.active_user )
 	}
 
 	ionViewWillEnter()

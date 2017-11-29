@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { CartPage } from '../pages/cart/cart';
+import { OrdersPage } from '../pages/orders/orders';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +22,8 @@ import { HttpModule } from '@angular/http';
     ListPage,
     RegisterPage,
     LoginPage,
-    CartPage
+    CartPage,
+    OrdersPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { HttpModule } from '@angular/http';
     ListPage,
     RegisterPage,
     LoginPage,
-    CartPage
+    CartPage,
+    OrdersPage
   ],
   providers: [
     StatusBar,

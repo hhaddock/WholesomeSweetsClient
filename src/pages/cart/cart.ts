@@ -16,7 +16,7 @@ export class CartPage
     constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
-        this.cart = this.navParams.get( 'cart' )
+        this.cart = ( localStorage.getItem( this.active_user + '_cart' ) !== null ) ? JSON.parse( localStorage.getItem( this.active_user + '_cart' ) ) : []
         this.calculatePrice()
         console.log( this.active_user )
     }
@@ -76,5 +76,29 @@ export class CartPage
         })
 
         localStorage.setItem( cart_name, JSON.stringify( this.cart ) )
+    }
+
+    submitOrder(): void
+    {
+        var headers = new Headers()
+        headers.append( 'Accept', 'application/json' )
+		headers.append( 'Content-Type', 'application/json' )
+		let options = new RequestOptions( { headers: headers } )
+
+        Object.keys( this.cart ).forEach( key =>
+        {
+            let post_params = {
+                product: this.cart[ key ].product,
+                email: this.active_user,
+                quantity: this.cart[ key ].count
+            }
+
+            this.httpCtrl.post( 'http://localhost:3000/order/create_order', JSON.stringify( post_params ), options )
+            .subscribe( data => {
+                console.log( data[ '_body' ] )
+            }, error => {
+                console.log( 'Confirmation error: ' + error )
+            })
+        })
     }
 }
