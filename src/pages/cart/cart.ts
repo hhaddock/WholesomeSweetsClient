@@ -84,8 +84,6 @@ export class CartPage
         this.order_num = order_group
     }
 
-
-
     submitOrder( order_group: string, index: number )
     {
         if( index == this.cart.length )
