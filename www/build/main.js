@@ -6,9 +6,9 @@ webpackJsonp([0],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cart_cart__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cart_cart__ = __webpack_require__(101);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -127,17 +127,142 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Home</ion-title>\n        <ion-buttons end>\n            <button ion-button (click)="loadCartView()">\n                <ion-icon name="md-cart" clear></ion-icon>\n                <ion-badge>{{cart}}</ion-badge>\n            </button>\n        </ion-buttons>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-card bg-color="pink" *ngFor="let item of inventory">\n        <img src={{item.path_to_picture}} />\n        <ion-card-content>\n            <ion-card-title card-title>\n                {{item.product}} - $ {{item.price}}\n            </ion-card-title>\n            <p card-description>\n                {{item.description}}\n            </p>\n            <hr>\n            <ion-grid card-buttons>\n                <ion-row>\n                    <ion-col>\n                        <button ion-button id="add-btn" (click)="bumpCounter( item )">\n                            <ion-icon name="md-add-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                    <ion-col>\n                        <strong quantity>{{item.count}}</strong>\n                    </ion-col>\n                    <ion-col>\n                        <button ion-button id="sub-btn" (click)="decrCounter( item )">\n                            <ion-icon name="md-remove-circle"></ion-icon>\n                        </button>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 111:
+/***/ 101:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(32);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CartPage = (function () {
+    function CartPage(navCtrl, navParams, viewCtrl, httpCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.httpCtrl = httpCtrl;
+        this.active_user = '';
+        this.cart = [];
+        this.cart_price = 0;
+        this.order_num = '-1';
+        this.active_user = localStorage.getItem('active_user');
+        this.cart = (localStorage.getItem(this.active_user + '_cart') !== null) ? JSON.parse(localStorage.getItem(this.active_user + '_cart')) : [];
+        this.shouldHideConfirm();
+        this.calculatePrice();
+    }
+    CartPage.prototype.ionViewWillEnter = function () {
+        this.viewCtrl.showBackButton(false);
+    };
+    CartPage.prototype.calculatePrice = function () {
+        var _this = this;
+        this.cart_price = 0;
+        Object.keys(this.cart).forEach(function (key) {
+            var product_count = _this.cart[key].count;
+            var product_price = _this.cart[key].price;
+            _this.cart_price += (product_count * product_price);
+        });
+    };
+    CartPage.prototype.bumpCounter = function (item) {
+        if (item.count < 4) {
+            item.count++;
+            this.cart_price += item.price;
+            this.updateCart();
+        }
+    };
+    CartPage.prototype.decrCounter = function (item) {
+        item.count--;
+        this.cart_price -= item.price;
+        this.updateCart();
+    };
+    CartPage.prototype.updateCart = function () {
+        var _this = this;
+        var cart_name = this.active_user + '_cart';
+        var temp_cart = this.cart;
+        this.cart = [];
+        Object.keys(temp_cart).forEach(function (key) {
+            if (temp_cart[key].count > 0) {
+                _this.cart.push({
+                    product: temp_cart[key].product,
+                    count: temp_cart[key].count,
+                    price: temp_cart[key].price,
+                    pic: temp_cart[key].pic
+                });
+            }
+        });
+        this.shouldHideConfirm();
+        localStorage.setItem(cart_name, JSON.stringify(this.cart));
+    };
+    CartPage.prototype.submitOrder = function () {
+        var _this = this;
+        this.order_num = '-1';
+        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        for (var i = 0; i < this.cart.length; i++) {
+            console.log(this.cart[i]);
+        }
+        Object.keys(this.cart).forEach(function (key) {
+            console.log(_this.order_num);
+            var post_params = {
+                product: _this.cart[key].product,
+                email: _this.active_user,
+                quantity: _this.cart[key].count,
+                order_group: _this.order_num
+            };
+            _this.httpCtrl.post('http://localhost:3000/order/create_order', JSON.stringify(post_params), options)
+                .subscribe(function (data) {
+                _this.order_num = data['_body'];
+            }, function (error) {
+                console.log('Confirmation error: ' + error);
+            });
+        });
+        console.log(this.order_num);
+    };
+    CartPage.prototype.shouldHideConfirm = function () {
+        if (this.cart.length == 0) {
+            this.hide_confirm = false;
+        }
+        else {
+            this.hide_confirm = true;
+        }
+    };
+    CartPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart" bg-color="pink">\n            <ion-thumbnail item-start>\n                <img src={{item.pic}} />\n            </ion-thumbnail>\n            <h2>{{item.product}} (x{{item.count}})</h2>\n            <p>$ {{item.price * item.count}}</p>\n            <button ion-button id="add-btn" item-end (click)="bumpCounter(item)">\n                <ion-icon name="md-add-circle"></ion-icon>\n            </button>\n            <button ion-button id="sub-btn" item-end (click)="decrCounter(item)">\n                <ion-icon name="md-remove-circle"></ion-icon>\n            </button>\n        </ion-item>\n    </ion-list>\n    <ion-card bg-color="pink" *ngIf="hide_confirm">\n        <ion-card-content>\n            <h2>User: {{active_user}}</h2>\n            <h2>Total: $ {{cart_price}}</h2>\n            <hr>\n            <button ion-button id="cnfrm-btn" (click)="submitOrder()">Confirm</button>\n        </ion-card-content>\n    </ion-card>\n    <ion-card bg-color="pink" *ngIf="!hide_confirm">\n        <ion-card-content>\n            <h2>Order num: {{order_num}}</h2>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
+    ], CartPage);
+    return CartPage;
+    var _a, _b, _c, _d;
+}());
+
+//# sourceMappingURL=cart.js.map
+
+/***/ }),
+
+/***/ 112:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -150,11 +275,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 111;
+webpackEmptyAsyncContext.id = 112;
 
 /***/ }),
 
-/***/ 152:
+/***/ 153:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -167,19 +292,19 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 152;
+webpackEmptyAsyncContext.id = 153;
 
 /***/ }),
 
-/***/ 196:
+/***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(100);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -301,14 +426,14 @@ var LoginPage = (function () {
 
 /***/ }),
 
-/***/ 197:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -415,124 +540,14 @@ var RegisterPage = (function () {
 
 /***/ }),
 
-/***/ 198:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(30);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var CartPage = (function () {
-    function CartPage(navCtrl, navParams, viewCtrl, httpCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
-        this.httpCtrl = httpCtrl;
-        this.active_user = '';
-        this.cart = [];
-        this.cart_price = 0;
-        this.active_user = localStorage.getItem('active_user');
-        this.cart = (localStorage.getItem(this.active_user + '_cart') !== null) ? JSON.parse(localStorage.getItem(this.active_user + '_cart')) : [];
-        this.calculatePrice();
-        console.log(this.active_user);
-    }
-    CartPage.prototype.ionViewWillEnter = function () {
-        this.viewCtrl.showBackButton(false);
-    };
-    CartPage.prototype.calculatePrice = function () {
-        var _this = this;
-        this.cart_price = 0;
-        Object.keys(this.cart).forEach(function (key) {
-            var product_count = _this.cart[key].count;
-            var product_price = _this.cart[key].price;
-            _this.cart_price += (product_count * product_price);
-        });
-        console.log(this.cart_price);
-    };
-    CartPage.prototype.bumpCounter = function (item) {
-        if (item.count < 4) {
-            item.count++;
-            this.cart_price += item.price;
-            this.updateCart();
-        }
-    };
-    CartPage.prototype.decrCounter = function (item) {
-        item.count--;
-        this.cart_price -= item.price;
-        this.updateCart();
-    };
-    CartPage.prototype.updateCart = function () {
-        var _this = this;
-        var cart_name = this.active_user + '_cart';
-        var temp_cart = this.cart;
-        this.cart = [];
-        Object.keys(temp_cart).forEach(function (key) {
-            if (temp_cart[key].count > 0) {
-                _this.cart.push({
-                    product: temp_cart[key].product,
-                    count: temp_cart[key].count,
-                    price: temp_cart[key].price,
-                    pic: temp_cart[key].pic
-                });
-            }
-        });
-        localStorage.setItem(cart_name, JSON.stringify(this.cart));
-    };
-    CartPage.prototype.submitOrder = function () {
-        var _this = this;
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]();
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
-        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        Object.keys(this.cart).forEach(function (key) {
-            var post_params = {
-                product: _this.cart[key].product,
-                email: _this.active_user,
-                quantity: _this.cart[key].count
-            };
-            _this.httpCtrl.post('http://localhost:3000/order/create_order', JSON.stringify(post_params), options)
-                .subscribe(function (data) {
-                console.log(data['_body']);
-            }, function (error) {
-                console.log('Confirmation error: ' + error);
-            });
-        });
-    };
-    CartPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart" bg-color="pink">\n            <ion-thumbnail item-start>\n                <img src={{item.pic}} />\n            </ion-thumbnail>\n            <h2>{{item.product}} (x{{item.count}})</h2>\n            <p>$ {{item.price * item.count}}</p>\n            <button ion-button id="add-btn" item-end (click)="bumpCounter(item)">\n                <ion-icon name="md-add-circle"></ion-icon>\n            </button>\n            <button ion-button id="sub-btn" item-end (click)="decrCounter(item)">\n                <ion-icon name="md-remove-circle"></ion-icon>\n            </button>\n        </ion-item>\n    </ion-list>\n    <ion-card bg-color="pink">\n        <ion-card-content>\n            <h2>User: {{active_user}}</h2>\n            <h2>Total: $ {{cart_price}}</h2>\n            <hr>\n            <button ion-button id="cnfrm-btn" (click)="submitOrder()">Confirm</button>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
-    ], CartPage);
-    return CartPage;
-    var _a, _b, _c, _d;
-}());
-
-//# sourceMappingURL=cart.js.map
-
-/***/ }),
-
 /***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrdersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -586,19 +601,19 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(267);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_register_register__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_cart_cart__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_register_register__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_cart_cart__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_orders_orders__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -669,14 +684,14 @@ var AppModule = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_orders_orders__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_cart_cart__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_cart_cart__ = __webpack_require__(101);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -720,39 +735,40 @@ var MyApp = (function () {
             _this.splashScreen.hide();
         });
     };
+    MyApp.prototype.logout = function () {
+        var _this = this;
+        var active_user = localStorage.getItem('active_user');
+        localStorage.setItem('active_user', '');
+        var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */]();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        var options = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var post_params = {
+            email: active_user
+        };
+        this.httpCtrl.post('http://localhost:3000/user/logout', JSON.stringify(post_params), options)
+            .subscribe(function (data) {
+            console.log(data['_body']);
+            _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_5__pages_login_login__["a" /* LoginPage */]);
+        }, function (error) {
+            console.log(error);
+        });
+    };
     MyApp.prototype.openPage = function (page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        if (page.component == __WEBPACK_IMPORTED_MODULE_5__pages_login_login__["a" /* LoginPage */]) {
-            var active_user = localStorage.getItem('active_user');
-            localStorage.setItem('active_user', '');
-            var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */]();
-            headers.append('Accept', 'application/json');
-            headers.append('Content-Type', 'application/json');
-            var options = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["d" /* RequestOptions */]({ headers: headers });
-            var post_params = {
-                email: active_user
-            };
-            this.httpCtrl.post('http://localhost:3000/user/logout', JSON.stringify(post_params), options)
-                .subscribe(function (data) {
-                console.log(data['_body']);
-            }, function (error) {
-                console.log(error);
-            });
-        }
         this.nav.setRoot(page.component);
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/`<ion-menu [content]="content" persistent=true>\n    <ion-header>\n        <ion-toolbar>\n            <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content bg-color="lred">\n        <ion-list>\n            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="menu-item">\n                {{p.title}}\n            </button>\n        </ion-list>\n    </ion-content>\n    <ion-footer>\n        <ion-toolbar>\n            <button type="button" menuClose round id="logout_btn" (click)="openPage(pages[0])"><strong>Logout</strong></button>\n        </ion-toolbar>\n    </ion-footer>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/`<ion-menu [content]="content" persistent=true>\n    <ion-header>\n        <ion-toolbar>\n            <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content bg-color="lred">\n        <ion-list>\n            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="menu-item">\n                {{p.title}}\n            </button>\n        </ion-list>\n    </ion-content>\n    <ion-footer>\n        <ion-toolbar>\n            <button type="button" menuClose round id="logout_btn" (click)="logout()"><strong>Logout</strong></button>\n        </ion-toolbar>\n    </ion-footer>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */]])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -765,7 +781,7 @@ var MyApp = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

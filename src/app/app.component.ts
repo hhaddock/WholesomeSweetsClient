@@ -41,30 +41,32 @@ export class MyApp {
     });
   }
 
+  logout(): void
+  {
+      let active_user = localStorage.getItem( 'active_user' )
+      localStorage.setItem( 'active_user', '' )
+
+      var headers = new Headers()
+      headers.append( 'Accept', 'application/json' )
+      headers.append( 'Content-Type', 'application/json' )
+      let options = new RequestOptions( { headers: headers } )
+
+      let post_params = {
+          email: active_user
+      }
+
+      this.httpCtrl.post( 'http://localhost:3000/user/logout', JSON.stringify( post_params ), options )
+      .subscribe( data => {
+          console.log( data[ '_body' ] )
+          this.nav.setRoot( LoginPage );
+      }, error => {
+          console.log( error )
+      })
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if( page.component == LoginPage )
-    {
-        let active_user = localStorage.getItem( 'active_user' )
-        localStorage.setItem( 'active_user', '' )
-
-        var headers = new Headers()
-        headers.append( 'Accept', 'application/json' )
-        headers.append( 'Content-Type', 'application/json' )
-        let options = new RequestOptions( { headers: headers } )
-
-        let post_params = {
-            email: active_user
-        }
-
-        this.httpCtrl.post( 'http://localhost:3000/user/logout', JSON.stringify( post_params ), options )
-        .subscribe( data => {
-            console.log( data[ '_body' ] )
-        }, error => {
-            console.log( error )
-        })
-    }
     this.nav.setRoot(page.component);
   }
 }

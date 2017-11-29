@@ -23,12 +23,17 @@
             </button>
         </ion-item>
     </ion-list>
-    <ion-card bg-color="pink">
+    <ion-card bg-color="pink" *ngIf="hide_confirm">
         <ion-card-content>
             <h2>User: {{active_user}}</h2>
             <h2>Total: $ {{cart_price}}</h2>
             <hr>
             <button ion-button id="cnfrm-btn" (click)="submitOrder()">Confirm</button>
+        </ion-card-content>
+    </ion-card>
+    <ion-card bg-color="pink" *ngIf="!hide_confirm">
+        <ion-card-content>
+            <h2>Order num: {{order_num}}</h2>
         </ion-card-content>
     </ion-card>
 </ion-content>
