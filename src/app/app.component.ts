@@ -55,7 +55,7 @@ export class MyApp {
           email: active_user
       }
 
-      this.httpCtrl.post( 'http://localhost:3000/user/logout', JSON.stringify( post_params ), options )
+      this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/logout', JSON.stringify( post_params ), options )
       .subscribe( data => {
           console.log( data[ '_body' ] )
           this.nav.setRoot( LoginPage );

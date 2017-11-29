@@ -62,7 +62,7 @@ export class RegisterPage {
 			pass : this.psswd
 		}
 
-		this.httpCtrl.post( 'http://localhost:3000/user/signup', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/signup', JSON.stringify( post_params ), options )
 		.subscribe( data => {
 			let status = data[ '_body' ]
 			if( status != '' )

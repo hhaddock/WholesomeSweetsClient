@@ -105,7 +105,7 @@ export class CartPage
             order_group: order_group
         }
 
-        this.httpCtrl.post( 'http://localhost:3000/order/create_order', JSON.stringify( post_params ), options )
+        this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/create_order', JSON.stringify( post_params ), options )
         .subscribe( data => {
             this.submitOrder( data[ '_body' ], index + 1 )
         }, error => {

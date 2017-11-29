@@ -28,7 +28,7 @@ export class OrdersPage
             email: this.active_user
         }
 
-        this.httpCtrl.post( 'http://localhost:3000/order/get_orders', JSON.stringify( post_params ), options )
+        this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/get_orders', JSON.stringify( post_params ), options )
         .subscribe( data => {
             this.orders = JSON.parse( data[ '_body' ] )
 
