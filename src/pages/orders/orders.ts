@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
@@ -11,7 +10,7 @@ export class OrdersPage
     active_user: string = ''
     orders: any = []
 
-    constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
+    constructor( private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
         this.loadOrders()

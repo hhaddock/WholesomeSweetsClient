@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, AlertController } from 'ionic-angular';
+import { ViewController, AlertController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
@@ -13,7 +13,7 @@ export class RegisterPage {
 	psswd: string = ''
 	cnfrm: string = ''
 
-	constructor( private navParams: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private httpCtrl: Http )
+	constructor( private viewCtrl: ViewController, private alertCtrl: AlertController, private httpCtrl: Http )
 	{
 	}
 

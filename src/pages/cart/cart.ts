@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
@@ -15,7 +15,7 @@ export class CartPage
     hide_confirm: boolean
     order_num: string = '-1'
 
-    constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
+    constructor( private viewCtrl: ViewController, private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
         this.cart = ( localStorage.getItem( this.active_user + '_cart' ) !== null ) ? JSON.parse( localStorage.getItem( this.active_user + '_cart' ) ) : []
