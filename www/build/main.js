@@ -219,7 +219,7 @@ var CartPage = (function () {
     CartPage.prototype.submitOrder = function (order_group, index) {
         var _this = this;
         if (index == this.cart.length) {
-            self.setOrderNum(order_group);
+            this.setOrderNum(order_group);
             return;
         }
         this.order_num = order_group;

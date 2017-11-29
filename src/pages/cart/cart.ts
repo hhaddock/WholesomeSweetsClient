@@ -90,7 +90,7 @@ export class CartPage
     {
         if( index == this.cart.length )
         {
-            self.setOrderNum( order_group )
+            this.setOrderNum( order_group )
             return
         }
 
