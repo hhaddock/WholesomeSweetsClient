@@ -79,38 +79,40 @@ export class CartPage
         localStorage.setItem( cart_name, JSON.stringify( this.cart ) )
     }
 
-    submitOrder()
+    setOrderNum( order_group: string )
     {
-        this.order_num = '-1'
+        this.order_num = order_group
+    }
+
+
+
+    submitOrder( order_group: string, index: number )
+    {
+        if( index == this.cart.length )
+        {
+            self.setOrderNum( order_group )
+            return
+        }
+
+        this.order_num = order_group
         var headers = new Headers()
         headers.append( 'Accept', 'application/json' )
 		headers.append( 'Content-Type', 'application/json' )
 		let options = new RequestOptions( { headers: headers } )
 
-        for( var i = 0; i < this.cart.length; i++ )
-        {
-            console.log( this.cart[ i ] )
+        let post_params = {
+            product: this.cart[ index ].product,
+            email: this.active_user,
+            quantity: this.cart[ index ].count,
+            order_group: order_group
         }
 
-        Object.keys( this.cart ).forEach( key =>
-        {
-            console.log( this.order_num )
-            let post_params = {
-                product: this.cart[ key ].product,
-                email: this.active_user,
-                quantity: this.cart[ key ].count,
-                order_group: this.order_num
-            }
-
-            this.httpCtrl.post( 'http://localhost:3000/order/create_order', JSON.stringify( post_params ), options )
-            .subscribe( data => {
-                this.order_num = data[ '_body' ]
-            }, error => {
-                console.log( 'Confirmation error: ' + error )
-            })
+        this.httpCtrl.post( 'http://localhost:3000/order/create_order', JSON.stringify( post_params ), options )
+        .subscribe( data => {
+            this.submitOrder( data[ '_body' ], index + 1 )
+        }, error => {
+            console.log( 'Confirmation error: ' + error )
         })
-
-        console.log( this.order_num )
     }
 
     shouldHideConfirm(): void

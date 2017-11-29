@@ -28,7 +28,7 @@
             <h2>User: {{active_user}}</h2>
             <h2>Total: $ {{cart_price}}</h2>
             <hr>
-            <button ion-button id="cnfrm-btn" (click)="submitOrder()">Confirm</button>
+            <button ion-button id="cnfrm-btn" (click)="submitOrder('-1',0)">Confirm</button>
         </ion-card-content>
     </ion-card>
     <ion-card bg-color="pink" *ngIf="!hide_confirm">

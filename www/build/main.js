@@ -213,32 +213,32 @@ var CartPage = (function () {
         this.shouldHideConfirm();
         localStorage.setItem(cart_name, JSON.stringify(this.cart));
     };
-    CartPage.prototype.submitOrder = function () {
+    CartPage.prototype.setOrderNum = function (order_group) {
+        this.order_num = order_group;
+    };
+    CartPage.prototype.submitOrder = function (order_group, index) {
         var _this = this;
-        this.order_num = '-1';
+        if (index == this.cart.length) {
+            self.setOrderNum(order_group);
+            return;
+        }
+        this.order_num = order_group;
         var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
         var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        for (var i = 0; i < this.cart.length; i++) {
-            console.log(this.cart[i]);
-        }
-        Object.keys(this.cart).forEach(function (key) {
-            console.log(_this.order_num);
-            var post_params = {
-                product: _this.cart[key].product,
-                email: _this.active_user,
-                quantity: _this.cart[key].count,
-                order_group: _this.order_num
-            };
-            _this.httpCtrl.post('http://localhost:3000/order/create_order', JSON.stringify(post_params), options)
-                .subscribe(function (data) {
-                _this.order_num = data['_body'];
-            }, function (error) {
-                console.log('Confirmation error: ' + error);
-            });
+        var post_params = {
+            product: this.cart[index].product,
+            email: this.active_user,
+            quantity: this.cart[index].count,
+            order_group: order_group
+        };
+        this.httpCtrl.post('http://localhost:3000/order/create_order', JSON.stringify(post_params), options)
+            .subscribe(function (data) {
+            _this.submitOrder(data['_body'], index + 1);
+        }, function (error) {
+            console.log('Confirmation error: ' + error);
         });
-        console.log(this.order_num);
     };
     CartPage.prototype.shouldHideConfirm = function () {
         if (this.cart.length == 0) {
@@ -250,7 +250,7 @@ var CartPage = (function () {
     };
     CartPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart" bg-color="pink">\n            <ion-thumbnail item-start>\n                <img src={{item.pic}} />\n            </ion-thumbnail>\n            <h2>{{item.product}} (x{{item.count}})</h2>\n            <p>$ {{item.price * item.count}}</p>\n            <button ion-button id="add-btn" item-end (click)="bumpCounter(item)">\n                <ion-icon name="md-add-circle"></ion-icon>\n            </button>\n            <button ion-button id="sub-btn" item-end (click)="decrCounter(item)">\n                <ion-icon name="md-remove-circle"></ion-icon>\n            </button>\n        </ion-item>\n    </ion-list>\n    <ion-card bg-color="pink" *ngIf="hide_confirm">\n        <ion-card-content>\n            <h2>User: {{active_user}}</h2>\n            <h2>Total: $ {{cart_price}}</h2>\n            <hr>\n            <button ion-button id="cnfrm-btn" (click)="submitOrder()">Confirm</button>\n        </ion-card-content>\n    </ion-card>\n    <ion-card bg-color="pink" *ngIf="!hide_confirm">\n        <ion-card-content>\n            <h2>Order num: {{order_num}}</h2>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
+            selector: 'page-cart',template:/*ion-inline-start:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/`<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Cart</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content bg-color="red">\n    <ion-list>\n        <ion-item *ngFor="let item of cart" bg-color="pink">\n            <ion-thumbnail item-start>\n                <img src={{item.pic}} />\n            </ion-thumbnail>\n            <h2>{{item.product}} (x{{item.count}})</h2>\n            <p>$ {{item.price * item.count}}</p>\n            <button ion-button id="add-btn" item-end (click)="bumpCounter(item)">\n                <ion-icon name="md-add-circle"></ion-icon>\n            </button>\n            <button ion-button id="sub-btn" item-end (click)="decrCounter(item)">\n                <ion-icon name="md-remove-circle"></ion-icon>\n            </button>\n        </ion-item>\n    </ion-list>\n    <ion-card bg-color="pink" *ngIf="hide_confirm">\n        <ion-card-content>\n            <h2>User: {{active_user}}</h2>\n            <h2>Total: $ {{cart_price}}</h2>\n            <hr>\n            <button ion-button id="cnfrm-btn" (click)="submitOrder(\'-1\',0)">Confirm</button>\n        </ion-card-content>\n    </ion-card>\n    <ion-card bg-color="pink" *ngIf="!hide_confirm">\n        <ion-card-content>\n            <h2>Order num: {{order_num}}</h2>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n`/*ion-inline-end:"/Users/cedrik/Desktop/WholesomeSweetsClient/src/pages/cart/cart.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object])
     ], CartPage);
