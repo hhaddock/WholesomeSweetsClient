@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { CartPage } from '../cart/cart';
 
@@ -18,7 +18,7 @@ export class HomePage
 	//object that holds the products that the user has added to their cart
 	cart_obj: any = []
 
-	constructor( private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private httpCtrl: Http )
+	constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
 		this.active_user = localStorage.getItem( 'active_user' )
 	}
