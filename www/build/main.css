@@ -60773,6 +60773,10 @@ page-orders [bg-color="red"] {
   background-color: #5E2A2E;
 }
 
+page-orders [bg-color="pink"] {
+  background-color: #F3D9D9;
+}
+
 page-register [bg-color="maroon"] {
   background-color: #5E2A2E;
 }

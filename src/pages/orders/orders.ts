@@ -14,5 +14,30 @@ export class OrdersPage
     constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
+        this.loadOrders()
+    }
+
+    loadOrders(): void
+    {
+        var headers = new Headers()
+        headers.append( 'Accept', 'application/json' )
+        headers.append( 'Content-Type', 'application/json' )
+        let options = new RequestOptions( { headers: headers } )
+
+        let post_params = {
+            email: this.active_user
+        }
+
+        this.httpCtrl.post( 'http://localhost:3000/order/get_orders', JSON.stringify( post_params ), options )
+        .subscribe( data => {
+            this.orders = JSON.parse( data[ '_body' ] )
+
+            Object.keys( this.orders ).forEach( key =>
+            {
+                console.log( this.orders[ key ].date )
+            })
+        }, error => {
+            console.log( 'Load order error: ' + error )
+        })
     }
 }
