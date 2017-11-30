@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
+
+import { HomePage } from '../home/home';
+import { OrdersPage } from '../orders/orders';
 
 @Component({
     selector: 'page-cart',
@@ -10,22 +13,53 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class CartPage
 {
     active_user: string = ''
+    active_user_cart: string = ''
     cart: any = []
     cart_price: number = 0
-    hide_confirm: boolean
     order_num: string = '-1'
+    ordered_items: any = []
 
-    constructor( private viewCtrl: ViewController, private httpCtrl: Http )
+    say_hide_confirm: boolean
+    say_hide_order: boolean
+    say_hide_empty: boolean
+
+    constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
-        this.cart = ( localStorage.getItem( this.active_user + '_cart' ) !== null ) ? JSON.parse( localStorage.getItem( this.active_user + '_cart' ) ) : []
-        this.shouldHideConfirm()
+        this.active_user_cart = this.active_user + '_cart'
+        this.cart = ( localStorage.getItem( this.active_user_cart ) !== null ) ? JSON.parse( localStorage.getItem( this.active_user_cart ) ) : []
+        this.setHiddenContent()
         this.calculatePrice()
     }
 
     ionViewWillEnter()
     {
         this.viewCtrl.showBackButton( false )
+    }
+
+    setHiddenContent(): void
+    {
+        if( this.cart.length == 0 )
+        {
+            if( this.order_num == '-1' )
+            {
+                this.say_hide_order = false
+                this.say_hide_confirm = false
+                this.say_hide_empty = true
+            }
+            else
+            {
+                this.say_hide_order = true
+                this.say_hide_confirm = false
+                this.say_hide_empty = false
+            }
+        }
+        else
+        {
+            this.say_hide_empty = false
+            this.say_hide_order = false
+            this.say_hide_confirm = true
+        }
     }
 
     calculatePrice(): void
@@ -75,13 +109,25 @@ export class CartPage
                 })
             }
         })
-        this.shouldHideConfirm()
+        this.setHiddenContent()
         localStorage.setItem( cart_name, JSON.stringify( this.cart ) )
     }
 
     setOrderNum( order_group: string )
     {
         this.order_num = order_group
+
+        Object.keys( this.cart ).forEach( key =>
+        {
+            this.ordered_items.push({
+                product: this.cart[ key ].product,
+                quantity: this.cart[ key ].count
+            })
+        })
+
+        this.cart = []
+        localStorage.setItem( this.active_user + '_cart', JSON.stringify( this.cart ) )
+        this.setHiddenContent()
     }
 
     submitOrder( order_group: string, index: number )
@@ -113,15 +159,13 @@ export class CartPage
         })
     }
 
-    shouldHideConfirm(): void
+    goToHome(): void
     {
-        if( this.cart.length == 0 )
-        {
-            this.hide_confirm = false
-        }
-        else
-        {
-            this.hide_confirm = true
-        }
+        this.navCtrl.push( HomePage )
+    }
+
+    goToOrders(): void
+    {
+        this.navCtrl.push( OrdersPage )
     }
 }

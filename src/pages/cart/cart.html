@@ -23,17 +23,36 @@
             </button>
         </ion-item>
     </ion-list>
-    <ion-card bg-color="pink" *ngIf="hide_confirm">
+
+    <!-- Card for showing the user their total and the confirm button -->
+    <ion-card bg-color="pink" *ngIf="say_hide_confirm">
         <ion-card-content>
             <h2>User: {{active_user}}</h2>
             <h2>Total: $ {{cart_price}}</h2>
             <hr>
-            <button ion-button id="cnfrm-btn" (click)="submitOrder('-1',0)">Confirm</button>
+            <button ion-button class="cart-btn" (click)="submitOrder('-1',0)">Confirm</button>
         </ion-card-content>
     </ion-card>
-    <ion-card bg-color="pink" *ngIf="!hide_confirm">
+
+    <!-- Card for showing the user their order number after confirming their purchase and showing the orders button -->
+    <ion-card bg-color="pink" *ngIf="say_hide_order">
         <ion-card-content>
-            <h2>Order num: {{order_num}}</h2>
+            <h2>Your order group: {{order_num}}</h2>
+            <div *ngFor="let item of ordered_items">
+                <h3>{{item.product}} (x{{item.quantity}})</h3>
+            </div>
+            <hr>
+            <button ion-button class="cart-btn" (click)="goToOrders()">Go to your orders</button>
         </ion-card-content>
     </ion-card>
+
+    <!-- Card for showing the user that their cart is empty and showing the home button -->
+    <ion-card bg-color="pink" *ngIf="say_hide_empty">
+        <ion-card-content>
+            <h2>Looks like your carts empty!</h2>
+            <hr>
+            <button ion-button class="cart-btn" (click)="goToHome()">Continue shopping</button>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
