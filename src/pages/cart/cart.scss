@@ -17,7 +17,7 @@ page-cart {
         height: 80%;
 	}
 
-    #cnfrm-btn {
+    .cart-btn {
 		background-color: color( $colors, register-btn, base );
 		color           : color( $colors, register-btn, contrast );
 		border-radius   : 6px;
