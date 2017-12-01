@@ -2,12 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { OrdersPage } from '../pages/orders/orders';
 import { CartPage } from '../pages/cart/cart';
+
+import { Globals } from '../globals';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +21,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private httpCtrl: Http) {
+  constructor( private globals: Globals, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private httpCtrl: Http ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -46,16 +48,16 @@ export class MyApp {
       let active_user = localStorage.getItem( 'active_user' )
       localStorage.setItem( 'active_user', '' )
 
-      var headers = new Headers()
+      /*var headers = new Headers()
       headers.append( 'Accept', 'application/json' )
       headers.append( 'Content-Type', 'application/json' )
-      let options = new RequestOptions( { headers: headers } )
+      let options = new RequestOptions( { headers: headers } )*/
 
       let post_params = {
           email: active_user
       }
 
-      this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/logout', JSON.stringify( post_params ), options )
+      this.httpCtrl.post( this.globals.logout_url, JSON.stringify( post_params ), this.globals.post_options )
       .subscribe( data => {
           console.log( data[ '_body' ] )
           this.nav.setRoot( LoginPage );

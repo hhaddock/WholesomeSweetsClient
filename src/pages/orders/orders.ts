@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
+import { Globals } from '../../globals';
 
 @Component({
     selector: 'page-orders',
@@ -11,7 +12,7 @@ export class OrdersPage
     active_user: string = ''
     orders: any = []
 
-    constructor( private viewCtrl: ViewController, private httpCtrl: Http )
+    constructor( private globals: Globals, private viewCtrl: ViewController, private httpCtrl: Http )
     {
         this.active_user = localStorage.getItem( 'active_user' )
         this.loadOrders()
@@ -24,16 +25,11 @@ export class OrdersPage
 
     loadOrders(): void
     {
-        var headers = new Headers()
-        headers.append( 'Accept', 'application/json' )
-        headers.append( 'Content-Type', 'application/json' )
-        let options = new RequestOptions( { headers: headers } )
-
         let post_params = {
             email: this.active_user
         }
 
-        this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/get_orders', JSON.stringify( post_params ), options )
+        this.httpCtrl.post( this.globals.orders_url, JSON.stringify( post_params ), this.globals.post_options )
         .subscribe( data => {
             this.orders = JSON.parse( data[ '_body' ] )
         }, error => {

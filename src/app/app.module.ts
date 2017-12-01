@@ -4,11 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { CartPage } from '../pages/cart/cart';
 import { OrdersPage } from '../pages/orders/orders';
+import { Globals } from '../globals'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +19,6 @@ import { HttpModule } from '@angular/http';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     RegisterPage,
     LoginPage,
     CartPage,
@@ -34,7 +33,6 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     RegisterPage,
     LoginPage,
     CartPage,
@@ -43,7 +41,8 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Globals
   ]
 })
 export class AppModule {}

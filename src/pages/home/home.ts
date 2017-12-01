@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { CartPage } from '../cart/cart';
+import { Globals } from '../../globals';
 
 @Component({
 	selector: 'page-home',
@@ -14,11 +15,11 @@ export class HomePage
 	//object that holds the products loaded form the DB
 	inventory: any = []
 	//number that holds the total number of products in the cart object
-	cart: number = 0
+	cart_quantity: number = 0
 	//object that holds the products that the user has added to their cart
 	cart_obj: any = []
 
-	constructor( private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
+	constructor( private globals: Globals, private navCtrl: NavController, private viewCtrl: ViewController, private httpCtrl: Http )
 	{
 		this.active_user = localStorage.getItem( 'active_user' )
 	}
@@ -30,18 +31,16 @@ export class HomePage
 		this.loadProducts()
 	}
 
+	/* Function for loading the list of product's and their corresponding info
+	 * from the server
+	 */
 	loadProducts(): void
 	{
-		var headers = new Headers()
-		headers.append( 'Accept', 'application/json' )
-		headers.append( 'Content-Type', 'application/json' )
-		let options = new RequestOptions( { headers: headers } )
-
 		let post_params = {
 			email: this.active_user
 		}
 
-		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/product/products', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( this.globals.home_url, JSON.stringify( post_params ), this.globals.post_options )
 		.subscribe( data => {
 			this.inventory = JSON.parse( data[ '_body' ] )
 			this.loadCart()
@@ -50,26 +49,35 @@ export class HomePage
 		})
 	}
 
+	/* Function for increasing the quantity of a product in the user's cart
+	 * if that product's quantity is less than 5
+	 */
 	bumpCounter( item ): void
 	{
 		if( item.count < 4 )
 		{
-			this.cart++
+			this.cart_quantity++
 			item.count++
 			this.updateCart()
 		}
 	}
 
+	/* Function for decreasing the quantity of a product in the user's cart
+	 * if that product's quantity is greater than 0
+	 */
 	decrCounter( item ): void
 	{
 		if( item.count > 0 )
 		{
-			this.cart--
+			this.cart_quantity--
 			item.count--
 			this.updateCart()
 		}
 	}
 
+	/* Function for loading the user's cart from localStorage and setting the
+	 * UI's cart data
+	 */
 	loadCart(): void
 	{
 		let cart_name = this.active_user + '_cart'
@@ -93,12 +101,15 @@ export class HomePage
 				{
 					this.inventory[ inv_key ].count = cart_item.count
 					this.cart_obj[ cart_key ].price = this.inventory[ inv_key ].price
-					this.cart += cart_item.count
+					this.cart_quantity += cart_item.count
 				}
 			}) //end inner for each
 		}) //end outter for each
 	}
 
+	/* Function for removing products from the user's cart if their quantity
+	 * is equal to 0
+	 */
 	updateCart(): void
 	{
 		let cart_name = this.active_user + '_cart'
@@ -123,6 +134,7 @@ export class HomePage
 		localStorage.setItem( cart_name, JSON.stringify( this.cart_obj ) )
 	}
 
+	// Function for pushing the CartPage onto the NavController
 	loadCartView(): void
 	{
 		this.navCtrl.push( CartPage, {

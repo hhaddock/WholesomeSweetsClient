@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, AlertController, ToastController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
+import { Globals } from '../../globals';
 
 @Component({
 	selector: 'page-login',
@@ -10,15 +11,18 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage
 {
-	//we could make this an object -> login_info: any
+	// string for holding the value of the email input box
 	email: string = ''
+	// string for holding the value of the password input box
 	psswd: string = ''
 
-	constructor( public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http )
+	constructor( private globals: Globals, public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController, private toastCtrl: ToastController, private httpCtrl: Http )
 	{
 	}
 
-	//called when login button is pressed
+	/* Function for determining if the login data is ready to be sent to the
+	 * server for the login request
+	 */
 	attemptLogin(): void
 	{
 		if( this.inputisEmpty( this.email ) || this.inputisEmpty( this.psswd ) ) //if either are empty or fail regex test, alert user
@@ -31,20 +35,17 @@ export class LoginPage
 		}
 	}
 
-
+	/* Function for sending the login data to the server and pushing the
+	 * HomePage onto the NavController if login was successfull
+	 */
 	postRequest(): void
 	{
-		var headers = new Headers()
-		headers.append( 'Accept', 'application/json' )
-		headers.append( 'Content-Type', 'application/json' )
-		let options = new RequestOptions( { headers: headers } )
-
 		let post_params = {
 			email: this.email,
 			pass: this.psswd
 		}
 
-		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/login', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( this.globals.login_url, JSON.stringify( post_params ), this.globals.post_options )
 		.subscribe( data => {
 			let status = data[ '_body' ]
 			if( status != 'true' )
@@ -53,6 +54,7 @@ export class LoginPage
 			}
             else
             {
+				// set the active user's email in localStorage
 				localStorage.setItem( 'active_user', this.email )
                 this.navCtrl.push( HomePage )
             }
@@ -61,7 +63,9 @@ export class LoginPage
 		})
 	}
 
-	//tells the user whats wrong with the input fields
+	/* Function for alerting the user with a pop up if anything is wrong with
+	 * the data or if the login attempt failed
+	 */
 	showAlert( title, msg ): void
 	{
 		let alert = this.alertCtrl.create(
@@ -74,8 +78,9 @@ export class LoginPage
 		alert.present()
 	}
 
-	//tells the user their profile has been created and prompts
-	//them to login
+	/* Function for loading the toast pop up when the user successfully
+	 * registered
+	 */
 	showRegistrationConfirm(): void
 	{
 		let toast = this.toastCtrl.create(
@@ -93,10 +98,10 @@ export class LoginPage
 	//called when register button is pressed
 	loadRegisterPage(): void
 	{
-		console.log( 'Register' )
 		let modal = this.modalCtrl.create( RegisterPage )
 
-		modal.onDidDismiss( data => {
+		modal.onDidDismiss( data =>
+		{
 			if( data.email != '' && data.psswd != '' ) //if data is empty then the registration was cancelled
 			{
 				this.email = data.email
@@ -111,15 +116,6 @@ export class LoginPage
 	//checks if input is okay to verify
 	inputisEmpty( str ): boolean
 	{
-		/** /^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/
-		 * This will change at some point to be more secure
-		 * but for now it only allows letters (a-zA-z),
-		 * numbers, and [ !, @, #, $, %, ^, &, *, . ].
-		 *
-		 * Eventually it will require a certain number of
-		 * characters that contains capital letters,
-		 * special chars, etc.
-		**/
 		let re = /^[\w!@#$%^&*.]+$/
 		return !re.test( str )
 	}

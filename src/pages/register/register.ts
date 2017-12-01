@@ -1,28 +1,37 @@
 import { Component } from '@angular/core';
 import { ViewController, AlertController } from 'ionic-angular';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
+import { Globals } from '../../globals';
 
 @Component({
 	selector: 'page-register',
 	templateUrl: 'register.html',
 })
-export class RegisterPage {
-
+export class RegisterPage
+{
+	// string for holding the value of the username input box
 	usrnm: string = ''
+	// string for holding the value of the email input box
 	email: string = ''
+	// string for holding the value of the password input box
 	psswd: string = ''
+	// string for holding the value of the confirm password input box
 	cnfrm: string = ''
 
-	constructor( private viewCtrl: ViewController, private alertCtrl: AlertController, private httpCtrl: Http )
+	constructor( private globals: Globals, private viewCtrl: ViewController, private alertCtrl: AlertController, private httpCtrl: Http )
 	{
 	}
 
+	/* Function for validating all of the input boxes before attempting to
+	 * send the registration reques to the server
+	 */
 	attemptRegistration(): void
 	{
 		let credentials = { usrnm: this.usrnm, email: this.email, psswd: this.psswd, cnfrm: this.cnfrm } //make object from login info for simpler access when validating
 		var flag: boolean = true
 
-		Object.keys( credentials ).forEach( key => {
+		Object.keys( credentials ).forEach( key =>
+		{
 			if( this.isEmpty( credentials[ key ] ) )
 			{
 				flag = false
@@ -44,25 +53,21 @@ export class RegisterPage {
 		else
 		{
 			this.sendRegistrationRequest()
-			//pass new username and password back to login for immediate login
-			//this.viewCtrl.dismiss( { usrnm: this.email, psswd: this.psswd } )
 		}
 	}
 
+	/* Function for sending the registration data to the server and dismissing
+	 * the modal if the registration was successfull
+	 */
 	sendRegistrationRequest(): void
 	{
-		var headers = new Headers()
-		headers.append( 'Accept', 'application/json' )
-		headers.append( 'Content-Type', 'application/json' )
-		let options = new RequestOptions( { headers: headers } )
-
 		let post_params = {
 			alias: this.usrnm,
 			email: this.email,
 			pass : this.psswd
 		}
 
-		this.httpCtrl.post( 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/signup', JSON.stringify( post_params ), options )
+		this.httpCtrl.post( this.globals.register_url, JSON.stringify( post_params ), this.globals.post_options )
 		.subscribe( data => {
 			let status = data[ '_body' ]
 			if( status != '' )
@@ -71,6 +76,7 @@ export class RegisterPage {
 			}
 			else
 			{
+				// Passes the registered email and password back for quick login
 				this.viewCtrl.dismiss( { email: this.email, psswd: this.psswd } )
 			}
 		}, error => {
@@ -78,6 +84,9 @@ export class RegisterPage {
 		})
 	}
 
+	/* Function for displaying a pop up to the user if anything is wrong with
+	 * the registration process
+	 */
 	showAlert( title, msg ): void
 	{
 		let alert = this.alertCtrl.create(
@@ -90,6 +99,9 @@ export class RegisterPage {
 		alert.present()
 	}
 
+	/* Function for regex testing the email string to determine if it contains
+	 * all of the necessary parts of a proper email
+	 */
 	verifyEmail(): boolean
 	{
 		//confirms the email consists of 'string'-'@'-'string'-'.'-'string'
@@ -97,6 +109,9 @@ export class RegisterPage {
 		return re.test( this.email )
 	}
 
+	/* Function for regex testing all of the input strings to determine if they
+	 * contain spaces
+	 */
 	isEmpty( str ): boolean
 	{
 		//fails if even a space is in the input
