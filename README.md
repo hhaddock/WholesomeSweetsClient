@@ -18,9 +18,13 @@ By using the Ionic Mobile APP framework and our normalized Database structure we
 
 ## Meeting CRUD Criteria:
 The app-user account that connects to the Database only has CRUD permissions (Cannot delete tables etc.)
+
 **Create:** Anytime an account is created or an order is placed the Create criteria is made
+
 **Read:** When authenticating a log in, the Select statement is used to check against the saved username and password saved in the database, it’s also used to get the products to load on screen after a successful log in
+
 **Update:** The Update statement gets called inside user.js for our logout function and authentication function.
+
 **Delete:** 
 
 ## Video Demo:
