@@ -19,13 +19,13 @@ By using the Ionic Mobile APP framework and our normalized Database structure we
 ## Meeting CRUD Criteria:
 The app-user account that connects to the Database only has CRUD permissions (Cannot delete tables etc.)
 
-**Create:** Anytime an account is created or an order is placed the Create criteria is made
+**Create:** When creating a new user account, it also creates it in the database.  Similarly, when a user submits a new order, it creates an order in the database and an order group that associates all of the products in that order with a number for tracking reasons.
 
-**Read:** When authenticating a log in, the Select statement is used to check against the saved username and password saved in the database, it’s also used to get the products to load on screen after a successful log in
+**Read:** When using protected functions on the API, a user must be authenticated.  To make sure a user is authenticated, there is an "active" column in the user table that the client api checks for.  If the user is not "active" or not actively logged in, the API will not allow the function to be called.
 
-**Update:** The Update statement gets called inside user.js for our logout function and authentication function.
+**Update:** The active column on each user is updated each time a user logs in/out of the application.  This active column is used for authentication and making sure that protected functions on the API are only being called if a user is logged in. 
 
-**Delete:** 
+**Delete:** After submitting an order, a user can view all of the orders they have made.  They have the ability to cancel an order by pressing the delete button in the orders view, which will get all of the orders in the group and delete them from the database.
 
 ## Video Demo:
 https://www.youtube.com/watch?v=SwiwvMNRdCk&feature=youtu.be
