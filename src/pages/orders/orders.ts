@@ -36,4 +36,21 @@ export class OrdersPage
             console.log( 'Load order error: ' + error )
         })
     }
+
+    deleteOrder(order): void
+    {
+      let post_params = {
+        email: this.active_user,
+        order_group: order.order_group
+      }
+
+      this.httpCtrl.post( this.globals.del_orders_url, JSON.stringify( post_params ), this.globals.post_options )
+      .subscribe( data => {
+          this.orders = []
+          this.loadOrders()
+          console.log(data);
+      }, error => {
+          console.log( 'Load order error: ' + error )
+      })
+    }
 }

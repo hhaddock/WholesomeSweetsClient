@@ -17,6 +17,7 @@ export class Globals
         this.login_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/login'
         this.register_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/signup'
         this.orders_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/get_orders'
+        this.del_orders_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/delete_order'
         this.home_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/product/products'
         this.cart_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/order/create_order'
         this.logout_url = 'http://ec2-54-244-76-150.us-west-2.compute.amazonaws.com:3000/user/logout'

@@ -19,6 +19,7 @@
                 <h4>Order group: {{order.order_group}}</h4>
                 <h4>Product(s): {{order.fk_product}}</h4>
                 <h4>Order quantity: {{order.quantity}}</h4>
+                <button type="button" ion-button round item-end id="delete_btn" (click)="deleteOrder(order)">Delete</button>
             </ion-card-content>
         </ion-card>
     </ion-list>
