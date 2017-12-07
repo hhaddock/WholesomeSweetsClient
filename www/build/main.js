@@ -259,10 +259,9 @@ var OrdersPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-orders',template:/*ion-inline-start:"C:\Users\hayde\Desktop\wholesomesweetsclient\src\pages\orders\orders.html"*/`<ion-header>\n\n    <ion-navbar>\n\n        <button ion-button menuToggle>\n\n            <ion-icon name="menu"></ion-icon>\n\n        </button>\n\n        <ion-title>Orders</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content bg-color="red">\n\n    <ion-list>\n\n        <ion-card *ngFor="let order of orders" bg-color="pink">\n\n            <ion-card-content>\n\n                <ion-card-title>\n\n                    Order number: {{order.order_num}}\n\n                </ion-card-title>\n\n                <hr />\n\n                <h4>Order date: {{order.date}}</h4>\n\n                <h4>Order group: {{order.order_group}}</h4>\n\n                <h4>Product(s): {{order.fk_product}}</h4>\n\n                <h4>Order quantity: {{order.quantity}}</h4>\n\n                <button type="button" ion-button round item-end id="delete_btn" (click)="deleteOrder(order)">Delete</button>\n\n            </ion-card-content>\n\n        </ion-card>\n\n    </ion-list>\n\n</ion-content>\n\n`/*ion-inline-end:"C:\Users\hayde\Desktop\wholesomesweetsclient\src\pages\orders\orders.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* Globals */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__globals__["a" /* Globals */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__globals__["a" /* Globals */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
     ], OrdersPage);
     return OrdersPage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=orders.js.map

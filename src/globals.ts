@@ -7,6 +7,7 @@ export class Globals
     public login_url: string
     public register_url: string
     public orders_url: string
+    public del_orders_url: string
     public home_url: string
     public cart_url: string
     public logout_url: string
